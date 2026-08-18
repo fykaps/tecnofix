@@ -46,6 +46,8 @@
       "diagnosis": "Problema en la placa base, corto en el circuito de carga.",
       "technician": "Juan Pérez",
       "ticketNumber": "TK-2026-001",
+      "serviceType": "svc-007",
+      "serviceTypeName": "Reparación de Hardware (Placa Base)",
       "costBreakdown": {
         "labor": 200.00,
         "parts": 120.00,
@@ -90,6 +92,8 @@
       "repairDetails": "Reemplazo de fuente de poder. Limpieza de componentes.",
       "technician": "Carlos López",
       "ticketNumber": "TK-2026-002",
+      "serviceType": "svc-006",
+      "serviceTypeName": "Reparación de Hardware (Fuente de Poder)",
       "costBreakdown": {
         "labor": 150.00,
         "parts": 100.00,
@@ -145,6 +149,8 @@
       "repairDetails": "Teclado reemplazado por uno nuevo. Limpieza de placa base.",
       "technician": "Juan Pérez",
       "ticketNumber": "TK-2026-003",
+      "serviceType": "svc-005",
+      "serviceTypeName": "Limpieza Física y Mantenimiento Preventivo",
       "costBreakdown": {
         "labor": 100.00,
         "parts": 60.00,
@@ -200,6 +206,8 @@
       "repairDetails": "Limpieza profunda de ventiladores y disipador. Cambio de pasta térmica. Optimización del sistema.",
       "technician": "Juan Pérez",
       "ticketNumber": "TK-2026-021",
+      "serviceType": "svc-005",
+      "serviceTypeName": "Limpieza Física y Mantenimiento Preventivo",
       "costBreakdown": {
         "labor": 100.00,
         "parts": 0,
@@ -253,6 +261,8 @@
       "diagnosis": "Derrame de líquido en el teclado. Oxidación en el flex del teclado y touchpad.",
       "technician": "Carlos López",
       "ticketNumber": "TK-2026-022",
+      "serviceType": "svc-005",
+      "serviceTypeName": "Limpieza Física y Mantenimiento Preventivo",
       "costBreakdown": {
         "labor": 150.00,
         "parts": 80.00,
@@ -303,6 +313,8 @@
       "repairDetails": "Actualización de drivers gráficos. Limpieza de ventiladores. Optimización de configuración de juegos.",
       "technician": "Juan Pérez",
       "ticketNumber": "TK-2026-023",
+      "serviceType": "svc-003",
+      "serviceTypeName": "Instalación de Software y Programas",
       "costBreakdown": {
         "labor": 120.00,
         "parts": 0,
@@ -355,6 +367,8 @@
       "estimatedDelivery": "2026-08-21",
       "technician": "Carlos López",
       "ticketNumber": "TK-2026-024",
+      "serviceType": "svc-001",
+      "serviceTypeName": "Diagnóstico General",
       "costBreakdown": {
         "labor": 80.00,
         "parts": 0,
@@ -398,6 +412,8 @@
       "diagnosis": "Batería dañada con inflamación. Reemplazo urgente por seguridad.",
       "technician": "Juan Pérez",
       "ticketNumber": "TK-2026-025",
+      "serviceType": "svc-006",
+      "serviceTypeName": "Reparación de Hardware (Fuente de Poder)",
       "costBreakdown": {
         "labor": 80.00,
         "parts": 150.00,
@@ -447,6 +463,8 @@
       "repairDetails": "Reemplazo de pantalla. Migración a SSD de 512GB para mejorar rendimiento.",
       "technician": "Carlos López",
       "ticketNumber": "TK-2026-026",
+      "serviceType": "svc-008",
+      "serviceTypeName": "Reemplazo de Disco Duro/SSD",
       "costBreakdown": {
         "labor": 200.00,
         "parts": 250.00,
@@ -499,6 +517,8 @@
       "estimatedDelivery": "2026-08-22",
       "technician": "Juan Pérez",
       "ticketNumber": "TK-2026-027",
+      "serviceType": "svc-006",
+      "serviceTypeName": "Reparación de Hardware (Fuente de Poder)",
       "costBreakdown": {
         "labor": 180.00,
         "parts": 120.00,
@@ -544,6 +564,8 @@
       "repairDetails": "Reemplazo de ventilador. Limpieza profunda del sistema de refrigeración.",
       "technician": "Carlos López",
       "ticketNumber": "TK-2026-028",
+      "serviceType": "svc-005",
+      "serviceTypeName": "Limpieza Física y Mantenimiento Preventivo",
       "costBreakdown": {
         "labor": 100.00,
         "parts": 60.00,
@@ -596,6 +618,8 @@
       "estimatedDelivery": "2026-08-21",
       "technician": "Juan Pérez",
       "ticketNumber": "TK-2026-029",
+      "serviceType": "svc-006",
+      "serviceTypeName": "Reparación de Hardware (Fuente de Poder)",
       "costBreakdown": {
         "labor": 120.00,
         "parts": 80.00,
@@ -641,6 +665,8 @@
       "repairDetails": "Actualización de drivers USB y audio. Configuración del sistema.",
       "technician": "Carlos López",
       "ticketNumber": "TK-2026-030",
+      "serviceType": "svc-003",
+      "serviceTypeName": "Instalación de Software y Programas",
       "costBreakdown": {
         "labor": 80.00,
         "parts": 0,
@@ -694,6 +720,8 @@
       "diagnosis": "Archivos del sistema dañados. Posible infección de malware.",
       "technician": "Juan Pérez",
       "ticketNumber": "TK-2026-031",
+      "serviceType": "svc-004",
+      "serviceTypeName": "Eliminación de Virus y Malware",
       "costBreakdown": {
         "labor": 100.00,
         "parts": 0,
@@ -741,6 +769,8 @@
       "estimatedDelivery": "2026-08-22",
       "technician": "Carlos López",
       "ticketNumber": "TK-2026-032",
+      "serviceType": "svc-006",
+      "serviceTypeName": "Reparación de Hardware (Fuente de Poder)",
       "costBreakdown": {
         "labor": 130.00,
         "parts": 200.00,
@@ -786,6 +816,8 @@
       "repairDetails": "Ampliación de RAM a 64GB. Limpieza de ventiladores. Optimización del sistema.",
       "technician": "Juan Pérez",
       "ticketNumber": "TK-2026-033",
+      "serviceType": "svc-009",
+      "serviceTypeName": "Instalación de Memoria RAM",
       "costBreakdown": {
         "labor": 150.00,
         "parts": 350.00,
@@ -841,6 +873,8 @@
       "repairDetails": "Actualización de drivers de Wi-Fi y Bluetooth. Configuración de red.",
       "technician": "Carlos López",
       "ticketNumber": "TK-2026-034",
+      "serviceType": "svc-010",
+      "serviceTypeName": "Configuración de Red y Wi-Fi",
       "costBreakdown": {
         "labor": 80.00,
         "parts": 0,
@@ -896,6 +930,8 @@
       "repairDetails": "Limpieza profunda de ventiladores y radiadores. Cambio de pasta térmica de alta calidad. Optimización de perfil de ventilación.",
       "technician": "Juan Pérez",
       "ticketNumber": "TK-2026-035",
+      "serviceType": "svc-005",
+      "serviceTypeName": "Limpieza Física y Mantenimiento Preventivo",
       "costBreakdown": {
         "labor": 150.00,
         "parts": 0,
@@ -948,6 +984,8 @@
       "estimatedDelivery": "2026-08-21",
       "technician": "Carlos López",
       "ticketNumber": "TK-2026-036",
+      "serviceType": "svc-006",
+      "serviceTypeName": "Reparación de Hardware (Fuente de Poder)",
       "costBreakdown": {
         "labor": 100.00,
         "parts": 70.00,
@@ -991,6 +1029,8 @@
       "diagnosis": "Memoria RAM insuficiente. Posible malware consumiendo recursos.",
       "technician": "Juan Pérez",
       "ticketNumber": "TK-2026-037",
+      "serviceType": "svc-009",
+      "serviceTypeName": "Instalación de Memoria RAM",
       "costBreakdown": {
         "labor": 120.00,
         "parts": 120.00,
@@ -1041,6 +1081,8 @@
       "repairDetails": "Reemplazo de batería y cargador. Calibración de batería nueva.",
       "technician": "Carlos López",
       "ticketNumber": "TK-2026-038",
+      "serviceType": "svc-006",
+      "serviceTypeName": "Reparación de Hardware (Fuente de Poder)",
       "costBreakdown": {
         "labor": 80.00,
         "parts": 180.00,
@@ -1093,6 +1135,8 @@
       "estimatedDelivery": "2026-08-21",
       "technician": "Juan Pérez",
       "ticketNumber": "TK-2026-039",
+      "serviceType": "svc-006",
+      "serviceTypeName": "Reparación de Hardware (Fuente de Poder)",
       "costBreakdown": {
         "labor": 100.00,
         "parts": 150.00,
@@ -1138,6 +1182,8 @@
       "repairDetails": "Reemplazo de SSD por uno nuevo de 512GB. Instalación de macOS Monterey.",
       "technician": "Carlos López",
       "ticketNumber": "TK-2026-040",
+      "serviceType": "svc-008",
+      "serviceTypeName": "Reemplazo de Disco Duro/SSD",
       "costBreakdown": {
         "labor": 200.00,
         "parts": 250.00,
@@ -1169,7 +1215,7 @@
       "createdAt": "2026-08-13T15:00:00.000Z",
       "updatedAt": "2026-08-17T12:00:00.000Z"
     }
- ],
+  ],
   "expenses": [
     {
       "id": "exp-001",

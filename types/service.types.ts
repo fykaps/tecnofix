@@ -11,11 +11,11 @@ export interface ComputerSpecs {
 }
 
 export interface CostBreakdown {
-    labor: number;          // Mano de obra
-    parts: number;          // Repuestos (si aplica)
-    materials: number;      // Materiales (pasta térmica, limpiadores, etc.)
-    travel: number;         // Traslado/Domicilio
-    total: number;          // Suma de todos los costos
+    labor: number;
+    parts: number;
+    materials: number;
+    travel: number;
+    total: number;
 }
 
 export interface Service {
@@ -35,13 +35,15 @@ export interface Service {
     ticketNumber: string;
     createdAt: string;
     updatedAt: string;
-    // ✅ Propiedades de costo para fácil acceso
-    cost: number;                   // Total del costo (igual a costBreakdown.total)
-    estimatedCost: number;          // Costo estimado inicial
-    finalCost?: number;             // Costo final (puede variar si se encontraron problemas adicionales)
-    customerApproved: boolean;      // Cliente aprobó el presupuesto
-    approvalDate?: string;          // Fecha de aprobación
-    statusHistory: Array<{          // Historial de cambios
+    // ✅ NUEVO: Tipo de servicio para la cotización
+    serviceType?: string;           // ID del servicio en el catálogo
+    serviceTypeName?: string;       // Nombre del servicio en el catálogo
+    cost: number;
+    estimatedCost: number;
+    finalCost?: number;
+    customerApproved: boolean;
+    approvalDate?: string;
+    statusHistory: Array<{
         status: Service['status'];
         date: string;
         note?: string;
@@ -52,10 +54,10 @@ export interface ServiceCatalog {
     id: string;
     name: string;
     description: string;
-    basePrice: number;            // Precio base
-    laborHours: number;           // Horas estimadas
+    basePrice: number;
+    laborHours: number;
     category: 'software' | 'hardware' | 'maintenance' | 'diagnostic' | 'network';
-    includesTravel: boolean;      // ¿Incluye traslado?
+    includesTravel: boolean;
 }
 
 export interface Expense {
@@ -89,4 +91,6 @@ export interface ServiceFormData {
     costBreakdown: CostBreakdown;
     cost: number;
     customerApproved: boolean;
+    serviceType?: string;      // ✅ NUEVO
+    serviceTypeName?: string;  // ✅ NUEVO
 }

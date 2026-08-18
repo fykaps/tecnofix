@@ -21,16 +21,20 @@ import { cn } from '@/lib/utils';
 
 interface CostCalculatorProps {
     onCostChange: (costBreakdown: CostBreakdown) => void;
+    onServiceTypeChange?: (serviceTypeId: string) => void;
     initialCost?: CostBreakdown;
     issueDescription?: string;
+    selectedServiceType?: string;
 }
 
 export function CostCalculator({
     onCostChange,
+    onServiceTypeChange,
     initialCost,
     issueDescription,
+    selectedServiceType: externalSelectedServiceType,
 }: CostCalculatorProps) {
-    const [serviceType, setServiceType] = useState<string>('');
+    const [serviceType, setServiceType] = useState<string>(externalSelectedServiceType || '');
     const [partsCost, setPartsCost] = useState<number>(initialCost?.parts || 0);
     const [materialsCost, setMaterialsCost] = useState<number>(initialCost?.materials || 0);
     const [includesTravel, setIncludesTravel] = useState<boolean>(initialCost?.travel > 0 || false);
@@ -43,9 +47,27 @@ export function CostCalculator({
         total: initialCost?.total || 0,
     });
 
-    // ✅ Detectar automáticamente el tipo de servicio por la descripción o por initialCost
+    // ✅ Obtener el nombre del servicio seleccionado
+    const getSelectedServiceName = (): string => {
+        if (!serviceType) return '';
+        const found = SERVICE_CATALOG.find(s => s.id === serviceType);
+        return found?.name || '';
+    };
+
+    // ✅ Sincronizar con externalSelectedServiceType
     useEffect(() => {
-        if (issueDescription) {
+        if (externalSelectedServiceType) {
+            setServiceType(externalSelectedServiceType);
+            const found = SERVICE_CATALOG.find(s => s.id === externalSelectedServiceType);
+            if (found) {
+                setLaborHours(found.laborHours);
+            }
+        }
+    }, [externalSelectedServiceType]);
+
+    // ✅ Detectar automáticamente el tipo de servicio por la descripción
+    useEffect(() => {
+        if (issueDescription && !externalSelectedServiceType) {
             const matchedService = SERVICE_CATALOG.find(s =>
                 issueDescription.toLowerCase().includes(s.name.toLowerCase()) ||
                 s.name.toLowerCase().includes(issueDescription.toLowerCase())
@@ -53,9 +75,12 @@ export function CostCalculator({
             if (matchedService) {
                 setServiceType(matchedService.id);
                 setLaborHours(matchedService.laborHours);
+                if (onServiceTypeChange) {
+                    onServiceTypeChange(matchedService.id);
+                }
             }
         }
-    }, [issueDescription]);
+    }, [issueDescription, externalSelectedServiceType]);
 
     // ✅ Cargar valores iniciales cuando hay initialCost
     useEffect(() => {
@@ -64,7 +89,6 @@ export function CostCalculator({
             setPartsCost(initialCost.parts || 0);
             setMaterialsCost(initialCost.materials || 0);
             setIncludesTravel(initialCost.travel > 0);
-            // Estimar horas basado en el costo de mano de obra
             const estimatedHours = Math.round(initialCost.labor / 50);
             if (estimatedHours > 0) {
                 setLaborHours(estimatedHours);
@@ -108,8 +132,20 @@ export function CostCalculator({
         }).format(value);
     };
 
+    // ✅ Manejar cambio de tipo de servicio
+    const handleServiceTypeChange = (value: string) => {
+        setServiceType(value);
+        const found = SERVICE_CATALOG.find(s => s.id === value);
+        if (found) {
+            setLaborHours(found.laborHours);
+        }
+        if (onServiceTypeChange) {
+            onServiceTypeChange(value);
+        }
+    };
+
     return (
-        <Card className="border border-blue-100 shadow-sm">
+        <Card className="border border-blue-100 shadow-sm w-full">
             <CardHeader className="bg-blue-50/50">
                 <CardTitle className="text-lg font-semibold flex items-center gap-2">
                     <DollarSign className="h-5 w-5 text-blue-600" />
@@ -121,26 +157,23 @@ export function CostCalculator({
                 </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 pt-4">
-                {/* Selección de tipo de servicio */}
-                <div className="space-y-2">
+                <div className="space-y-2 w-full">
                     <Label className="text-sm font-medium">Tipo de Servicio</Label>
                     <Select
                         value={serviceType}
-                        onValueChange={(value) => {
-                            setServiceType(value);
-                            const found = SERVICE_CATALOG.find(s => s.id === value);
-                            if (found) setLaborHours(found.laborHours);
-                        }}
+                        onValueChange={handleServiceTypeChange}
                     >
-                        <SelectTrigger>
-                            <SelectValue placeholder="Selecciona el tipo de servicio" />
+                        <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Selecciona el tipo de servicio">
+                                {serviceType ? getSelectedServiceName() : "Selecciona el tipo de servicio"}
+                            </SelectValue>
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="w-full min-w-[300px]">
                             {SERVICE_CATALOG.map((service) => (
                                 <SelectItem key={service.id} value={service.id}>
-                                    <div className="flex items-center justify-between w-full">
-                                        <span>{service.name}</span>
-                                        <span className="text-sm text-gray-500 ml-4">
+                                    <div className="flex items-center justify-between w-full gap-4">
+                                        <span className="font-medium">{service.name}</span>
+                                        <span className="text-sm text-gray-500 whitespace-nowrap">
                                             {formatCurrency(service.basePrice)}
                                         </span>
                                     </div>
@@ -150,8 +183,8 @@ export function CostCalculator({
                     </Select>
                     {serviceType && (
                         <p className="text-xs text-gray-500">
-                            Categoría: {getServiceCategory(serviceType)} •
-                            Precio base: {formatCurrency(getServicePrice(serviceType))}
+                            Categoría: <span className="font-medium">{getServiceCategory(serviceType)}</span> •
+                            Precio base: <span className="font-medium">{formatCurrency(getServicePrice(serviceType))}</span>
                         </p>
                     )}
                 </div>
@@ -189,7 +222,7 @@ export function CostCalculator({
                                 onCheckedChange={(checked) => setIncludesTravel(checked as boolean)}
                             />
                             <Label htmlFor="travel" className="text-sm cursor-pointer">
-                                Incluir traslado (S/ 25.00)
+                                Incluir traslado <span className="text-gray-400">(S/ 25.00)</span>
                             </Label>
                         </div>
                     </div>
