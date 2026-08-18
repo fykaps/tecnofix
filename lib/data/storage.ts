@@ -1,13 +1,14 @@
 import { Client } from '@/types/client.types';
-import { Service } from '@/types/service.types';
+import { Service, Expense } from '@/types/service.types';
 import initialData from './initial-data.json';
 
 const STORAGE_KEYS = {
     CLIENTS: 'tecnoFix_clients',
     SERVICES: 'tecnoFix_services',
+    EXPENSES: 'tecnoFix_expenses',
 };
 
-// Inicializar datos si no existen
+// Inicializar datos
 export const initializeStorage = (): void => {
     if (typeof window === 'undefined') return;
 
@@ -17,6 +18,10 @@ export const initializeStorage = (): void => {
 
     if (!localStorage.getItem(STORAGE_KEYS.SERVICES)) {
         localStorage.setItem(STORAGE_KEYS.SERVICES, JSON.stringify(initialData.services));
+    }
+
+    if (!localStorage.getItem(STORAGE_KEYS.EXPENSES)) {
+        localStorage.setItem(STORAGE_KEYS.EXPENSES, JSON.stringify(initialData.expenses || []));
     }
 };
 
@@ -94,6 +99,37 @@ export const deleteService = (id: string): void => {
     localStorage.setItem(STORAGE_KEYS.SERVICES, JSON.stringify(filtered));
 };
 
+// Gastos
+export const getExpenses = (): Expense[] => {
+    if (typeof window === 'undefined') return [];
+    const data = localStorage.getItem(STORAGE_KEYS.EXPENSES);
+    return data ? JSON.parse(data) : [];
+};
+
+export const getExpense = (id: string): Expense | undefined => {
+    const expenses = getExpenses();
+    return expenses.find(e => e.id === id);
+};
+
+export const saveExpense = (expense: Expense): void => {
+    if (typeof window === 'undefined') return;
+    const expenses = getExpenses();
+    const index = expenses.findIndex(e => e.id === expense.id);
+    if (index >= 0) {
+        expenses[index] = expense;
+    } else {
+        expenses.push(expense);
+    }
+    localStorage.setItem(STORAGE_KEYS.EXPENSES, JSON.stringify(expenses));
+};
+
+export const deleteExpense = (id: string): void => {
+    if (typeof window === 'undefined') return;
+    const expenses = getExpenses();
+    const filtered = expenses.filter(e => e.id !== id);
+    localStorage.setItem(STORAGE_KEYS.EXPENSES, JSON.stringify(filtered));
+};
+
 // Generar ID
 export const generateId = (prefix: string): string => {
     const random = Math.random().toString(36).substring(2, 9);
@@ -108,4 +144,60 @@ export const generateTicketNumber = (): string => {
     const yearServices = services.filter(s => s.ticketNumber.includes(`${year}`));
     const count = yearServices.length + 1;
     return `TK-${year}-${String(count).padStart(3, '0')}`;
+};
+
+// Obtener resumen financiero
+export const getFinancialSummary = () => {
+    const services = getServices();
+    const expenses = getExpenses();
+
+    const totalRevenue = services
+        .filter(s => s.status === 'delivered' || s.status === 'completed')
+        .reduce((sum, s) => sum + (s.cost || 0), 0);
+
+    const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
+
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+
+    const monthlyRevenue = services
+        .filter(s => {
+            const date = new Date(s.entryDate);
+            return date.getMonth() === currentMonth &&
+                date.getFullYear() === currentYear &&
+                (s.status === 'delivered' || s.status === 'completed');
+        })
+        .reduce((sum, s) => sum + (s.cost || 0), 0);
+
+    const monthlyExpenses = expenses
+        .filter(e => {
+            const date = new Date(e.date);
+            return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+        })
+        .reduce((sum, e) => sum + e.amount, 0);
+
+    const pendingInvoices = services
+        .filter(s => s.status === 'pending' || s.status === 'in-progress')
+        .reduce((sum, s) => sum + (s.cost || 0), 0);
+
+    const deliveredServices = services.filter(s => s.status === 'delivered' || s.status === 'completed');
+    const averageTicket = deliveredServices.length > 0
+        ? totalRevenue / deliveredServices.length
+        : 0;
+
+    const profitMargin = totalRevenue > 0
+        ? ((totalRevenue - totalExpenses) / totalRevenue) * 100
+        : 0;
+
+    return {
+        totalRevenue,
+        totalExpenses,
+        netProfit: totalRevenue - totalExpenses,
+        profitMargin,
+        pendingInvoices,
+        averageTicket,
+        monthlyRevenue,
+        monthlyExpenses,
+    };
 };

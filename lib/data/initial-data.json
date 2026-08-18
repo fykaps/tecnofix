@@ -21,116 +21,6 @@
       "documentNumber": "72345678",
       "createdAt": "2026-01-20T14:15:00.000Z",
       "updatedAt": "2026-01-20T14:15:00.000Z"
-    },
-    {
-      "id": "cli-003",
-      "name": "Luis García",
-      "phone": "987654323",
-      "email": "luis@email.com",
-      "address": "Jr. Las Flores 789",
-      "documentType": "DNI",
-      "documentNumber": "73456789",
-      "createdAt": "2026-02-01T09:00:00.000Z",
-      "updatedAt": "2026-02-01T09:00:00.000Z"
-    },
-    {
-      "id": "cli-004",
-      "name": "Ana Torres",
-      "phone": "987654324",
-      "email": "ana@email.com",
-      "address": "Av. Los Incas 321",
-      "documentType": "DNI",
-      "documentNumber": "74567890",
-      "createdAt": "2026-02-05T16:45:00.000Z",
-      "updatedAt": "2026-02-05T16:45:00.000Z"
-    },
-    {
-      "id": "cli-005",
-      "name": "Roberto Sánchez",
-      "phone": "987654325",
-      "email": "roberto@email.com",
-      "address": "Calle Libertad 654",
-      "documentType": "DNI",
-      "documentNumber": "75678901",
-      "createdAt": "2026-02-10T11:20:00.000Z",
-      "updatedAt": "2026-02-10T11:20:00.000Z"
-    },
-    {
-      "id": "cli-006",
-      "name": "Patricia Díaz",
-      "phone": "987654326",
-      "email": "patricia@email.com",
-      "address": "Av. Universitaria 987",
-      "documentType": "DNI",
-      "documentNumber": "76789012",
-      "createdAt": "2026-02-15T08:30:00.000Z",
-      "updatedAt": "2026-02-15T08:30:00.000Z"
-    },
-    {
-      "id": "cli-007",
-      "name": "Miguel Castro",
-      "phone": "987654327",
-      "email": "miguel@email.com",
-      "address": "Jr. Amazonas 147",
-      "documentType": "DNI",
-      "documentNumber": "77890123",
-      "createdAt": "2026-02-20T13:10:00.000Z",
-      "updatedAt": "2026-02-20T13:10:00.000Z"
-    },
-    {
-      "id": "cli-008",
-      "name": "Laura Morales",
-      "phone": "987654328",
-      "email": "laura@email.com",
-      "address": "Calle Sol 258",
-      "documentType": "DNI",
-      "documentNumber": "78901234",
-      "createdAt": "2026-03-01T10:00:00.000Z",
-      "updatedAt": "2026-03-01T10:00:00.000Z"
-    },
-    {
-      "id": "cli-009",
-      "name": "José Alvarado",
-      "phone": "987654329",
-      "email": "jose@email.com",
-      "address": "Av. Siempre Viva 369",
-      "documentType": "DNI",
-      "documentNumber": "79012345",
-      "createdAt": "2026-03-05T15:30:00.000Z",
-      "updatedAt": "2026-03-05T15:30:00.000Z"
-    },
-    {
-      "id": "cli-010",
-      "name": "Carmen Rojas",
-      "phone": "987654330",
-      "email": "carmen@email.com",
-      "address": "Jr. Los Pinos 741",
-      "documentType": "DNI",
-      "documentNumber": "70123456",
-      "createdAt": "2026-03-10T09:45:00.000Z",
-      "updatedAt": "2026-03-10T09:45:00.000Z"
-    },
-    {
-      "id": "cli-011",
-      "name": "David Córdova",
-      "phone": "987654331",
-      "email": "david@email.com",
-      "address": "Calle Real 852",
-      "documentType": "DNI",
-      "documentNumber": "78234567",
-      "createdAt": "2026-03-15T12:00:00.000Z",
-      "updatedAt": "2026-03-15T12:00:00.000Z"
-    },
-    {
-      "id": "cli-012",
-      "name": "Sofia Herrera",
-      "phone": "987654332",
-      "email": "sofia@email.com",
-      "address": "Av. La Marina 963",
-      "documentType": "DNI",
-      "documentNumber": "77345678",
-      "createdAt": "2026-03-20T14:20:00.000Z",
-      "updatedAt": "2026-03-20T14:20:00.000Z"
     }
   ],
   "services": [
@@ -153,9 +43,27 @@
       "status": "in-progress",
       "entryDate": "2026-03-25T08:00:00.000Z",
       "estimatedDelivery": "2026-04-01",
-      "diagnosis": "Problema en la placa base, corto en el circuito de carga. Posible daño en el chip de gestión de energía.",
+      "diagnosis": "Problema en la placa base, corto en el circuito de carga.",
       "technician": "Juan Pérez",
       "ticketNumber": "TK-2026-001",
+      "costBreakdown": {
+        "labor": 200.00,
+        "parts": 120.00,
+        "materials": 30.00,
+        "travel": 0,
+        "total": 350.00
+      },
+      "cost": 350.00,
+      "estimatedCost": 350.00,
+      "customerApproved": true,
+      "approvalDate": "2026-03-25T08:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "in-progress",
+          "date": "2026-03-25T08:00:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        }
+      ],
       "createdAt": "2026-03-25T08:00:00.000Z",
       "updatedAt": "2026-03-25T08:00:00.000Z"
     },
@@ -174,18 +82,49 @@
         "observations": "Torre con golpe en el costado izquierdo"
       },
       "issue": "La computadora se apaga repentinamente después de unos minutos de uso. Se reinicia constantemente.",
-      "status": "pending",
-      "entryDate": "2026-03-26T09:30:00.000Z",
-      "estimatedDelivery": "2026-04-02",
+      "status": "delivered",
+      "entryDate": "2026-03-20T09:30:00.000Z",
+      "estimatedDelivery": "2026-03-27",
+      "deliveredDate": "2026-03-26T18:00:00.000Z",
+      "diagnosis": "Fuente de poder dañada, sobrecalentamiento.",
+      "repairDetails": "Reemplazo de fuente de poder. Limpieza de componentes.",
       "technician": "Carlos López",
       "ticketNumber": "TK-2026-002",
-      "createdAt": "2026-03-26T09:30:00.000Z",
-      "updatedAt": "2026-03-26T09:30:00.000Z"
+      "costBreakdown": {
+        "labor": 150.00,
+        "parts": 100.00,
+        "materials": 30.00,
+        "travel": 0,
+        "total": 280.00
+      },
+      "cost": 280.00,
+      "estimatedCost": 280.00,
+      "customerApproved": true,
+      "approvalDate": "2026-03-20T09:30:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-03-20T09:30:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        },
+        {
+          "status": "in-progress",
+          "date": "2026-03-21T10:00:00.000Z",
+          "note": "Inicio de reparación"
+        },
+        {
+          "status": "delivered",
+          "date": "2026-03-26T18:00:00.000Z",
+          "note": "Equipo entregado al cliente"
+        }
+      ],
+      "createdAt": "2026-03-20T09:30:00.000Z",
+      "updatedAt": "2026-03-26T18:00:00.000Z"
     },
     {
       "id": "srvc-003",
-      "clientId": "cli-003",
-      "clientName": "Luis García",
+      "clientId": "cli-001",
+      "clientName": "Carlos Mendoza",
       "computer": {
         "brand": "Lenovo",
         "model": "ThinkPad E15",
@@ -197,350 +136,594 @@
         "operatingSystem": "Windows 11 Home",
         "observations": "Teclado con derrame de café"
       },
-      "issue": "Varias teclas no responden, especialmente la 'A', 'S', 'D', 'F' y la barra espaciadora. La pantalla parpadea ocasionalmente.",
+      "issue": "Varias teclas no responden, especialmente la 'A', 'S', 'D', 'F' y la barra espaciadora.",
       "status": "completed",
       "entryDate": "2026-03-27T11:00:00.000Z",
       "estimatedDelivery": "2026-04-03",
       "deliveredDate": "2026-04-02T16:00:00.000Z",
-      "diagnosis": "Derrame de líquido en el teclado, oxidación en el flex de conexión. Se requiere reemplazo de teclado.",
-      "repairDetails": "Teclado reemplazado por uno nuevo. Limpieza de placa base con alcohol isopropílico.",
-      "cost": 180.00,
+      "diagnosis": "Derrame de líquido en el teclado, oxidación en el flex.",
+      "repairDetails": "Teclado reemplazado por uno nuevo. Limpieza de placa base.",
       "technician": "Juan Pérez",
       "ticketNumber": "TK-2026-003",
+      "costBreakdown": {
+        "labor": 100.00,
+        "parts": 60.00,
+        "materials": 20.00,
+        "travel": 0,
+        "total": 180.00
+      },
+      "cost": 180.00,
+      "estimatedCost": 180.00,
+      "customerApproved": true,
+      "approvalDate": "2026-03-27T11:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-03-27T11:00:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        },
+        {
+          "status": "in-progress",
+          "date": "2026-03-28T09:00:00.000Z",
+          "note": "Inicio de reparación"
+        },
+        {
+          "status": "completed",
+          "date": "2026-04-02T16:00:00.000Z",
+          "note": "Reparación completada, esperando entrega"
+        }
+      ],
       "createdAt": "2026-03-27T11:00:00.000Z",
       "updatedAt": "2026-04-02T16:00:00.000Z"
     },
     {
-      "id": "srvc-004",
-      "clientId": "cli-004",
-      "clientName": "Ana Torres",
+      "id": "srvc-021",
+      "clientId": "cli-001",
+      "clientName": "Carlos Mendoza",
       "computer": {
         "brand": "HP",
-        "model": "Pavilion 14",
+        "model": "Pavilion 15",
+        "type": "Laptop",
+        "processor": "Intel Core i5-1135G7",
+        "ram": "8GB DDR4",
+        "storage": "256GB SSD",
+        "graphics": "Intel Iris Xe",
+        "operatingSystem": "Windows 11 Pro",
+        "observations": "Equipo con sobrecalentamiento"
+      },
+      "issue": "La laptop se apaga sola después de 10 minutos de uso. El ventilador hace mucho ruido.",
+      "status": "delivered",
+      "entryDate": "2026-08-16T09:00:00.000Z",
+      "estimatedDelivery": "2026-08-18",
+      "deliveredDate": "2026-08-18T10:30:00.000Z",
+      "diagnosis": "Sobrecalentamiento por acumulación de polvo en ventiladores. Pasta térmica seca.",
+      "repairDetails": "Limpieza profunda de ventiladores y disipador. Cambio de pasta térmica. Optimización del sistema.",
+      "technician": "Juan Pérez",
+      "ticketNumber": "TK-2026-021",
+      "costBreakdown": {
+        "labor": 100.00,
+        "parts": 0,
+        "materials": 25.00,
+        "travel": 0,
+        "total": 125.00
+      },
+      "cost": 125.00,
+      "estimatedCost": 125.00,
+      "customerApproved": true,
+      "approvalDate": "2026-08-16T09:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-16T09:00:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        },
+        {
+          "status": "in-progress",
+          "date": "2026-08-17T08:00:00.000Z",
+          "note": "Inicio de reparación - Limpieza y cambio de pasta térmica"
+        },
+        {
+          "status": "delivered",
+          "date": "2026-08-18T10:30:00.000Z",
+          "note": "Equipo entregado funcionando correctamente"
+        }
+      ],
+      "createdAt": "2026-08-16T09:00:00.000Z",
+      "updatedAt": "2026-08-18T10:30:00.000Z"
+    },
+    {
+      "id": "srvc-022",
+      "clientId": "cli-002",
+      "clientName": "María Fernández",
+      "computer": {
+        "brand": "Dell",
+        "model": "Inspiron 15",
         "type": "Laptop",
         "processor": "Intel Core i7-1165G7",
         "ram": "16GB DDR4",
         "storage": "512GB SSD",
-        "graphics": "NVIDIA GeForce MX450",
+        "graphics": "Intel Iris Xe",
         "operatingSystem": "Windows 11 Home",
-        "observations": "Pantalla con rayón visible"
+        "observations": "Teclado con derrame de líquido"
       },
-      "issue": "La batería no retiene carga, solo dura 30 minutos desconectada. El cargador hace ruido al conectarlo.",
-      "status": "pending",
-      "entryDate": "2026-03-28T10:15:00.000Z",
-      "estimatedDelivery": "2026-04-04",
+      "issue": "Teclado no responde correctamente, algunas teclas están pegadas. El touchpad funciona intermitentemente.",
+      "status": "in-progress",
+      "entryDate": "2026-08-17T10:00:00.000Z",
+      "estimatedDelivery": "2026-08-20",
+      "diagnosis": "Derrame de líquido en el teclado. Oxidación en el flex del teclado y touchpad.",
       "technician": "Carlos López",
-      "ticketNumber": "TK-2026-004",
-      "createdAt": "2026-03-28T10:15:00.000Z",
-      "updatedAt": "2026-03-28T10:15:00.000Z"
+      "ticketNumber": "TK-2026-022",
+      "costBreakdown": {
+        "labor": 150.00,
+        "parts": 80.00,
+        "materials": 20.00,
+        "travel": 0,
+        "total": 250.00
+      },
+      "cost": 250.00,
+      "estimatedCost": 250.00,
+      "customerApproved": true,
+      "approvalDate": "2026-08-17T10:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-17T10:00:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        },
+        {
+          "status": "in-progress",
+          "date": "2026-08-18T08:00:00.000Z",
+          "note": "Inicio de reparación - Limpieza de oxidación"
+        }
+      ],
+      "createdAt": "2026-08-17T10:00:00.000Z",
+      "updatedAt": "2026-08-18T08:00:00.000Z"
     },
     {
-      "id": "srvc-005",
-      "clientId": "cli-005",
-      "clientName": "Roberto Sánchez",
+      "id": "srvc-023",
+      "clientId": "cli-003",
+      "clientName": "Luis García",
+      "computer": {
+        "brand": "ASUS",
+        "model": "TUF Gaming F15",
+        "type": "Laptop",
+        "processor": "Intel Core i7-12700H",
+        "ram": "16GB DDR5",
+        "storage": "1TB SSD",
+        "graphics": "NVIDIA RTX 3060",
+        "operatingSystem": "Windows 11 Pro",
+        "observations": "Uso intensivo para gaming"
+      },
+      "issue": "La pantalla muestra artefactos de color verde al jugar. Los juegos se cierran inesperadamente.",
+      "status": "completed",
+      "entryDate": "2026-08-15T08:30:00.000Z",
+      "estimatedDelivery": "2026-08-18",
+      "deliveredDate": "2026-08-18T11:00:00.000Z",
+      "diagnosis": "Problema en la GPU - Sobrecalentamiento y drivers desactualizados.",
+      "repairDetails": "Actualización de drivers gráficos. Limpieza de ventiladores. Optimización de configuración de juegos.",
+      "technician": "Juan Pérez",
+      "ticketNumber": "TK-2026-023",
+      "costBreakdown": {
+        "labor": 120.00,
+        "parts": 0,
+        "materials": 15.00,
+        "travel": 0,
+        "total": 135.00
+      },
+      "cost": 135.00,
+      "estimatedCost": 135.00,
+      "customerApproved": true,
+      "approvalDate": "2026-08-15T08:30:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-15T08:30:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        },
+        {
+          "status": "in-progress",
+          "date": "2026-08-16T09:00:00.000Z",
+          "note": "Diagnóstico y limpieza de componentes"
+        },
+        {
+          "status": "completed",
+          "date": "2026-08-18T11:00:00.000Z",
+          "note": "Reparación completada - Pruebas de rendimiento exitosas"
+        }
+      ],
+      "createdAt": "2026-08-15T08:30:00.000Z",
+      "updatedAt": "2026-08-18T11:00:00.000Z"
+    },
+    {
+      "id": "srvc-024",
+      "clientId": "cli-004",
+      "clientName": "Ana Torres",
       "computer": {
         "brand": "Apple",
-        "model": "MacBook Air M1",
+        "model": "MacBook Air M2",
         "type": "Laptop",
-        "processor": "Apple M1",
+        "processor": "Apple M2",
         "ram": "8GB",
         "storage": "256GB SSD",
         "graphics": "Apple GPU",
         "operatingSystem": "macOS Ventura",
         "observations": "Estado físico excelente"
       },
-      "issue": "No reconoce el disco externo, la cámara web muestra imagen borrosa y el audio del micrófono no funciona en llamadas.",
-      "status": "in-progress",
-      "entryDate": "2026-03-29T08:45:00.000Z",
-      "estimatedDelivery": "2026-04-05",
-      "diagnosis": "Problema en el controlador USB-C, posible daño en el flex de la cámara.",
-      "technician": "Juan Pérez",
-      "ticketNumber": "TK-2026-005",
-      "createdAt": "2026-03-29T08:45:00.000Z",
-      "updatedAt": "2026-03-29T08:45:00.000Z"
-    },
-    {
-      "id": "srvc-006",
-      "clientId": "cli-006",
-      "clientName": "Patricia Díaz",
-      "computer": {
-        "brand": "ASUS",
-        "model": "TUF Gaming A15",
-        "type": "Laptop",
-        "processor": "AMD Ryzen 5 4600H",
-        "ram": "8GB DDR4",
-        "storage": "512GB SSD",
-        "graphics": "NVIDIA GTX 1650",
-        "operatingSystem": "Windows 10 Pro",
-        "observations": "Sobrecarga de polvo en ventiladores"
-      },
-      "issue": "La laptop se sobrecalienta y se apaga mientras juego. Alcanza temperaturas de 95°C.",
-      "status": "completed",
-      "entryDate": "2026-03-30T09:00:00.000Z",
-      "estimatedDelivery": "2026-04-06",
-      "deliveredDate": "2026-04-05T15:30:00.000Z",
-      "diagnosis": "Ventiladores obstruidos con polvo. Pasta térmica completamente seca.",
-      "repairDetails": "Limpieza profunda de ventiladores. Reemplazo de pasta térmica. Actualización de drivers.",
-      "cost": 220.00,
-      "technician": "Carlos López",
-      "ticketNumber": "TK-2026-006",
-      "createdAt": "2026-03-30T09:00:00.000Z",
-      "updatedAt": "2026-04-05T15:30:00.000Z"
-    },
-    {
-      "id": "srvc-007",
-      "clientId": "cli-001",
-      "clientName": "Carlos Mendoza",
-      "computer": {
-        "brand": "Dell",
-        "model": "Latitude 7420",
-        "type": "Laptop",
-        "processor": "Intel Core i5-1145G7",
-        "ram": "8GB DDR4",
-        "storage": "256GB SSD",
-        "graphics": "Intel Iris Xe",
-        "operatingSystem": "Windows 10 Pro",
-        "observations": "Tapa con rasguños"
-      },
-      "issue": "El sistema operativo inicia pero se congela al cabo de 5 minutos. Aparecen pantallazos azules.",
+      "issue": "El sistema operativo no inicia, muestra un signo de interrogación en la carpeta.",
       "status": "pending",
-      "entryDate": "2026-03-31T10:30:00.000Z",
-      "estimatedDelivery": "2026-04-07",
-      "technician": "Juan Pérez",
-      "ticketNumber": "TK-2026-007",
-      "createdAt": "2026-03-31T10:30:00.000Z",
-      "updatedAt": "2026-03-31T10:30:00.000Z"
+      "entryDate": "2026-08-18T09:00:00.000Z",
+      "estimatedDelivery": "2026-08-21",
+      "technician": "Carlos López",
+      "ticketNumber": "TK-2026-024",
+      "costBreakdown": {
+        "labor": 80.00,
+        "parts": 0,
+        "materials": 0,
+        "travel": 0,
+        "total": 80.00
+      },
+      "cost": 80.00,
+      "estimatedCost": 80.00,
+      "customerApproved": false,
+      "approvalDate": "2026-08-18T09:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-18T09:00:00.000Z",
+          "note": "Servicio creado - Pendiente de diagnóstico y presupuesto final"
+        }
+      ],
+      "createdAt": "2026-08-18T09:00:00.000Z",
+      "updatedAt": "2026-08-18T09:00:00.000Z"
     },
     {
-      "id": "srvc-008",
-      "clientId": "cli-007",
-      "clientName": "Miguel Castro",
+      "id": "srvc-025",
+      "clientId": "cli-005",
+      "clientName": "Roberto Sánchez",
       "computer": {
         "brand": "Lenovo",
-        "model": "IdeaCentre AIO 3",
-        "type": "All-in-One",
-        "processor": "Intel Core i5-10210U",
-        "ram": "12GB DDR4",
-        "storage": "1TB HDD",
-        "operatingSystem": "Windows 11 Home",
-        "observations": "Monitor con mancha oscura"
-      },
-      "issue": "La pantalla parpadea y muestra líneas horizontales. El disco duro hace ruido de clics.",
-      "status": "in-progress",
-      "entryDate": "2026-04-01T08:00:00.000Z",
-      "estimatedDelivery": "2026-04-08",
-      "diagnosis": "Falla en el panel LCD. Disco duro con sectores dañados.",
-      "technician": "Carlos López",
-      "ticketNumber": "TK-2026-008",
-      "createdAt": "2026-04-01T08:00:00.000Z",
-      "updatedAt": "2026-04-01T08:00:00.000Z"
-    },
-    {
-      "id": "srvc-009",
-      "clientId": "cli-008",
-      "clientName": "Laura Morales",
-      "computer": {
-        "brand": "HP",
-        "model": "Envy x360",
+        "model": "IdeaPad 3",
         "type": "Laptop",
-        "processor": "Intel Core i7-1165G7",
-        "ram": "16GB DDR4",
+        "processor": "AMD Ryzen 5 5500U",
+        "ram": "8GB DDR4",
         "storage": "512GB SSD",
-        "graphics": "Intel Iris Xe",
-        "operatingSystem": "Windows 11 Pro",
-        "observations": "Varios golpes en las esquinas"
-      },
-      "issue": "La bisagra izquierda está rota, la pantalla no se mantiene firme. También tiene problemas con el Wi-Fi.",
-      "status": "pending",
-      "entryDate": "2026-04-02T09:15:00.000Z",
-      "estimatedDelivery": "2026-04-09",
-      "technician": "Juan Pérez",
-      "ticketNumber": "TK-2026-009",
-      "createdAt": "2026-04-02T09:15:00.000Z",
-      "updatedAt": "2026-04-02T09:15:00.000Z"
-    },
-    {
-      "id": "srvc-010",
-      "clientId": "cli-009",
-      "clientName": "José Alvarado",
-      "computer": {
-        "brand": "MSI",
-        "model": "Modern 14",
-        "type": "Laptop",
-        "processor": "Intel Core i7-10510U",
-        "ram": "16GB DDR4",
-        "storage": "1TB SSD",
-        "graphics": "NVIDIA GeForce MX330",
-        "operatingSystem": "Windows 10 Pro",
-        "observations": "Estado impecable"
-      },
-      "issue": "El puerto USB-C no funciona. El lector de huellas no detecta el dedo.",
-      "status": "delivered",
-      "entryDate": "2026-03-15T11:00:00.000Z",
-      "estimatedDelivery": "2026-03-22",
-      "deliveredDate": "2026-03-21T17:00:00.000Z",
-      "diagnosis": "Puerto USB-C dañado por mala conexión. Sensor de huellas con falla de firmware.",
-      "repairDetails": "Reemplazo de puerto USB-C. Actualización de firmware del sensor.",
-      "cost": 150.00,
-      "technician": "Carlos López",
-      "ticketNumber": "TK-2026-010",
-      "createdAt": "2026-03-15T11:00:00.000Z",
-      "updatedAt": "2026-03-21T17:00:00.000Z"
-    },
-    {
-      "id": "srvc-011",
-      "clientId": "cli-010",
-      "clientName": "Carmen Rojas",
-      "computer": {
-        "brand": "Acer",
-        "model": "Aspire 5",
-        "type": "Laptop",
-        "processor": "AMD Ryzen 3 3200U",
-        "ram": "4GB DDR4",
-        "storage": "128GB SSD + 500GB HDD",
-        "graphics": "AMD Radeon Vega 3",
-        "operatingSystem": "Windows 10 Home",
-        "observations": "Plástico de la base roto"
-      },
-      "issue": "Se reinicia al azar. A veces no enciende y hay que presionar el botón de encendido varias veces.",
-      "status": "in-progress",
-      "entryDate": "2026-04-03T10:00:00.000Z",
-      "estimatedDelivery": "2026-04-10",
-      "diagnosis": "Problema de soldadura en la placa base. El botón de encendido está desgastado.",
-      "technician": "Juan Pérez",
-      "ticketNumber": "TK-2026-011",
-      "createdAt": "2026-04-03T10:00:00.000Z",
-      "updatedAt": "2026-04-03T10:00:00.000Z"
-    },
-    {
-      "id": "srvc-012",
-      "clientId": "cli-011",
-      "clientName": "David Córdova",
-      "computer": {
-        "brand": "Samsung",
-        "model": "Galaxy Book Pro",
-        "type": "Laptop",
-        "processor": "Intel Core i5-1135G7",
-        "ram": "8GB LPDDR4x",
-        "storage": "256GB SSD",
-        "graphics": "Intel Iris Xe",
+        "graphics": "AMD Radeon Graphics",
         "operatingSystem": "Windows 11 Home",
-        "observations": "Cargador original incluido"
+        "observations": "Batería inflada"
       },
-      "issue": "El teclado retroiluminado no funciona, las teclas de función no responden.",
-      "status": "pending",
-      "entryDate": "2026-04-04T08:30:00.000Z",
-      "estimatedDelivery": "2026-04-11",
-      "technician": "Carlos López",
-      "ticketNumber": "TK-2026-012",
-      "createdAt": "2026-04-04T08:30:00.000Z",
-      "updatedAt": "2026-04-04T08:30:00.000Z"
+      "issue": "La batería no retiene carga y está inflada. El touchpad no funciona correctamente.",
+      "status": "in-progress",
+      "entryDate": "2026-08-17T11:30:00.000Z",
+      "estimatedDelivery": "2026-08-19",
+      "diagnosis": "Batería dañada con inflamación. Reemplazo urgente por seguridad.",
+      "technician": "Juan Pérez",
+      "ticketNumber": "TK-2026-025",
+      "costBreakdown": {
+        "labor": 80.00,
+        "parts": 150.00,
+        "materials": 10.00,
+        "travel": 25.00,
+        "total": 265.00
+      },
+      "cost": 265.00,
+      "estimatedCost": 265.00,
+      "customerApproved": true,
+      "approvalDate": "2026-08-17T11:30:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-17T11:30:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        },
+        {
+          "status": "in-progress",
+          "date": "2026-08-18T08:30:00.000Z",
+          "note": "Inicio de reparación - Reemplazo de batería"
+        }
+      ],
+      "createdAt": "2026-08-17T11:30:00.000Z",
+      "updatedAt": "2026-08-18T08:30:00.000Z"
     },
     {
-      "id": "srvc-013",
-      "clientId": "cli-002",
-      "clientName": "María Fernández",
+      "id": "srvc-026",
+      "clientId": "cli-006",
+      "clientName": "Patricia Díaz",
       "computer": {
         "brand": "HP",
         "model": "Pavilion 24",
         "type": "All-in-One",
-        "processor": "Intel Core i7-10700T",
-        "ram": "16GB DDR4",
-        "storage": "512GB SSD",
-        "graphics": "Intel UHD Graphics 630",
-        "operatingSystem": "Windows 10 Pro",
-        "observations": "Sin observaciones"
+        "processor": "Intel Core i5-1135G7",
+        "ram": "12GB DDR4",
+        "storage": "1TB HDD",
+        "operatingSystem": "Windows 11 Home",
+        "observations": "Monitor con línea vertical"
       },
-      "issue": "El sistema operativo no inicia, muestra 'No bootable device'. El disco duro no se detecta en la BIOS.",
-      "status": "completed",
-      "entryDate": "2026-03-20T09:00:00.000Z",
-      "estimatedDelivery": "2026-03-27",
-      "deliveredDate": "2026-03-26T18:00:00.000Z",
-      "diagnosis": "Disco SSD falló. No hay reconocimiento en la BIOS.",
-      "repairDetails": "Reemplazo de SSD por uno nuevo de 512GB. Instalación de Windows 10 Pro.",
-      "cost": 350.00,
-      "technician": "Juan Pérez",
-      "ticketNumber": "TK-2026-013",
-      "createdAt": "2026-03-20T09:00:00.000Z",
-      "updatedAt": "2026-03-26T18:00:00.000Z"
+      "issue": "La pantalla tiene una línea vertical de color morado. El equipo es muy lento.",
+      "status": "delivered",
+      "entryDate": "2026-08-14T08:00:00.000Z",
+      "estimatedDelivery": "2026-08-17",
+      "deliveredDate": "2026-08-17T16:00:00.000Z",
+      "diagnosis": "Problema en el panel LCD. Disco duro lento y fragmentado.",
+      "repairDetails": "Reemplazo de pantalla. Migración a SSD de 512GB para mejorar rendimiento.",
+      "technician": "Carlos López",
+      "ticketNumber": "TK-2026-026",
+      "costBreakdown": {
+        "labor": 200.00,
+        "parts": 250.00,
+        "materials": 30.00,
+        "travel": 0,
+        "total": 480.00
+      },
+      "cost": 480.00,
+      "estimatedCost": 480.00,
+      "customerApproved": true,
+      "approvalDate": "2026-08-14T08:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-14T08:00:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        },
+        {
+          "status": "in-progress",
+          "date": "2026-08-15T09:00:00.000Z",
+          "note": "Inicio de reparación - Reemplazo de pantalla y migración a SSD"
+        },
+        {
+          "status": "delivered",
+          "date": "2026-08-17T16:00:00.000Z",
+          "note": "Equipo entregado con nueva pantalla y SSD instalado"
+        }
+      ],
+      "createdAt": "2026-08-14T08:00:00.000Z",
+      "updatedAt": "2026-08-17T16:00:00.000Z"
     },
     {
-      "id": "srvc-014",
-      "clientId": "cli-012",
-      "clientName": "Sofia Herrera",
+      "id": "srvc-027",
+      "clientId": "cli-007",
+      "clientName": "Miguel Castro",
       "computer": {
         "brand": "Dell",
-        "model": "Inspiron 15 3000",
+        "model": "XPS 13",
         "type": "Laptop",
-        "processor": "Intel Core i3-1115G4",
-        "ram": "4GB DDR4",
-        "storage": "1TB HDD",
+        "processor": "Intel Core i7-1185G7",
+        "ram": "16GB LPDDR4x",
+        "storage": "512GB SSD",
+        "graphics": "Intel Iris Xe",
+        "operatingSystem": "Windows 10 Pro",
+        "observations": "Equipo con daño en bisagra"
+      },
+      "issue": "La bisagra derecha está rota, la pantalla no se mantiene firme. El puerto USB-C no funciona.",
+      "status": "pending",
+      "entryDate": "2026-08-18T10:00:00.000Z",
+      "estimatedDelivery": "2026-08-22",
+      "technician": "Juan Pérez",
+      "ticketNumber": "TK-2026-027",
+      "costBreakdown": {
+        "labor": 180.00,
+        "parts": 120.00,
+        "materials": 20.00,
+        "travel": 25.00,
+        "total": 345.00
+      },
+      "cost": 345.00,
+      "estimatedCost": 345.00,
+      "customerApproved": false,
+      "approvalDate": "2026-08-18T10:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-18T10:00:00.000Z",
+          "note": "Servicio creado - Pendiente de aprobación del cliente"
+        }
+      ],
+      "createdAt": "2026-08-18T10:00:00.000Z",
+      "updatedAt": "2026-08-18T10:00:00.000Z"
+    },
+    {
+      "id": "srvc-028",
+      "clientId": "cli-008",
+      "clientName": "Laura Morales",
+      "computer": {
+        "brand": "Acer",
+        "model": "Aspire 5",
+        "type": "Laptop",
+        "processor": "Intel Core i5-1035G1",
+        "ram": "8GB DDR4",
+        "storage": "256GB SSD",
         "graphics": "Intel UHD Graphics",
         "operatingSystem": "Windows 11 Home",
-        "observations": "Equipo lento desde el inicio"
+        "observations": "Ventilador ruidoso"
       },
-      "issue": "Muy lenta, demora 10 minutos en iniciar. Los programas se congelan constantemente.",
-      "status": "pending",
-      "entryDate": "2026-04-05T11:00:00.000Z",
-      "estimatedDelivery": "2026-04-12",
+      "issue": "El ventilador hace un ruido muy fuerte y la laptop se calienta demasiado.",
+      "status": "completed",
+      "entryDate": "2026-08-16T13:00:00.000Z",
+      "estimatedDelivery": "2026-08-18",
+      "deliveredDate": "2026-08-18T09:30:00.000Z",
+      "diagnosis": "Cojinete del ventilador dañado. Acumulación de polvo en el disipador.",
+      "repairDetails": "Reemplazo de ventilador. Limpieza profunda del sistema de refrigeración.",
       "technician": "Carlos López",
-      "ticketNumber": "TK-2026-014",
-      "createdAt": "2026-04-05T11:00:00.000Z",
-      "updatedAt": "2026-04-05T11:00:00.000Z"
-    },
-    {
-      "id": "srvc-015",
-      "clientId": "cli-003",
-      "clientName": "Luis García",
-      "computer": {
-        "brand": "ASUS",
-        "model": "ROG Strix G15",
-        "type": "Laptop",
-        "processor": "AMD Ryzen 7 5800H",
-        "ram": "16GB DDR4",
-        "storage": "1TB SSD",
-        "graphics": "NVIDIA RTX 3060",
-        "operatingSystem": "Windows 11 Pro",
-        "observations": "Uso intensivo para gaming"
+      "ticketNumber": "TK-2026-028",
+      "costBreakdown": {
+        "labor": 100.00,
+        "parts": 60.00,
+        "materials": 15.00,
+        "travel": 0,
+        "total": 175.00
       },
-      "issue": "La pantalla muestra artefactos de color verde y rojo. Los juegos se cierran solos.",
-      "status": "in-progress",
-      "entryDate": "2026-04-06T09:30:00.000Z",
-      "estimatedDelivery": "2026-04-13",
-      "diagnosis": "Problema en la GPU, posible desoldadura de la tarjeta gráfica.",
-      "technician": "Juan Pérez",
-      "ticketNumber": "TK-2026-015",
-      "createdAt": "2026-04-06T09:30:00.000Z",
-      "updatedAt": "2026-04-06T09:30:00.000Z"
+      "cost": 175.00,
+      "estimatedCost": 175.00,
+      "customerApproved": true,
+      "approvalDate": "2026-08-16T13:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-16T13:00:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        },
+        {
+          "status": "in-progress",
+          "date": "2026-08-17T10:00:00.000Z",
+          "note": "Inicio de reparación - Reemplazo de ventilador"
+        },
+        {
+          "status": "completed",
+          "date": "2026-08-18T09:30:00.000Z",
+          "note": "Reparación completada - Equipo en pruebas"
+        }
+      ],
+      "createdAt": "2026-08-16T13:00:00.000Z",
+      "updatedAt": "2026-08-18T09:30:00.000Z"
     },
     {
-      "id": "srvc-016",
-      "clientId": "cli-004",
-      "clientName": "Ana Torres",
+      "id": "srvc-029",
+      "clientId": "cli-009",
+      "clientName": "José Alvarado",
+      "computer": {
+        "brand": "Samsung",
+        "model": "Galaxy Book Pro",
+        "type": "Laptop",
+        "processor": "Intel Core i7-1165G7",
+        "ram": "16GB LPDDR4x",
+        "storage": "512GB SSD",
+        "graphics": "Intel Iris Xe",
+        "operatingSystem": "Windows 11 Pro",
+        "observations": "Muy delgada"
+      },
+      "issue": "El puerto de carga USB-C está suelto, el cable se desconecta con cualquier movimiento.",
+      "status": "pending",
+      "entryDate": "2026-08-18T11:00:00.000Z",
+      "estimatedDelivery": "2026-08-21",
+      "technician": "Juan Pérez",
+      "ticketNumber": "TK-2026-029",
+      "costBreakdown": {
+        "labor": 120.00,
+        "parts": 80.00,
+        "materials": 15.00,
+        "travel": 25.00,
+        "total": 240.00
+      },
+      "cost": 240.00,
+      "estimatedCost": 240.00,
+      "customerApproved": true,
+      "approvalDate": "2026-08-18T11:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-18T11:00:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado - Esperando repuestos"
+        }
+      ],
+      "createdAt": "2026-08-18T11:00:00.000Z",
+      "updatedAt": "2026-08-18T11:00:00.000Z"
+    },
+    {
+      "id": "srvc-030",
+      "clientId": "cli-010",
+      "clientName": "Carmen Rojas",
+      "computer": {
+        "brand": "MSI",
+        "model": "Modern 15",
+        "type": "Laptop",
+        "processor": "Intel Core i7-10510U",
+        "ram": "16GB DDR4",
+        "storage": "512GB SSD",
+        "graphics": "NVIDIA GeForce MX250",
+        "operatingSystem": "Windows 10 Pro",
+        "observations": "Teclado con desgaste"
+      },
+      "issue": "La laptop no reconoce el disco externo y el audio tiene estática.",
+      "status": "delivered",
+      "entryDate": "2026-08-15T14:00:00.000Z",
+      "estimatedDelivery": "2026-08-18",
+      "deliveredDate": "2026-08-18T12:00:00.000Z",
+      "diagnosis": "Problema en el controlador USB. Drivers de audio desactualizados.",
+      "repairDetails": "Actualización de drivers USB y audio. Configuración del sistema.",
+      "technician": "Carlos López",
+      "ticketNumber": "TK-2026-030",
+      "costBreakdown": {
+        "labor": 80.00,
+        "parts": 0,
+        "materials": 0,
+        "travel": 0,
+        "total": 80.00
+      },
+      "cost": 80.00,
+      "estimatedCost": 80.00,
+      "customerApproved": true,
+      "approvalDate": "2026-08-15T14:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-15T14:00:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        },
+        {
+          "status": "in-progress",
+          "date": "2026-08-17T14:00:00.000Z",
+          "note": "Actualización de drivers y configuración"
+        },
+        {
+          "status": "delivered",
+          "date": "2026-08-18T12:00:00.000Z",
+          "note": "Equipo entregado funcionando correctamente"
+        }
+      ],
+      "createdAt": "2026-08-15T14:00:00.000Z",
+      "updatedAt": "2026-08-18T12:00:00.000Z"
+    },
+    {
+      "id": "srvc-031",
+      "clientId": "cli-011",
+      "clientName": "David Córdova",
       "computer": {
         "brand": "Lenovo",
-        "model": "Legion 5",
+        "model": "ThinkPad T14",
         "type": "Laptop",
-        "processor": "AMD Ryzen 5 5600H",
-        "ram": "8GB DDR4",
+        "processor": "AMD Ryzen 7 Pro 4750U",
+        "ram": "16GB DDR4",
         "storage": "512GB SSD",
-        "graphics": "NVIDIA GTX 1650",
+        "graphics": "AMD Radeon Graphics",
         "operatingSystem": "Windows 10 Pro",
-        "observations": "Base con desgaste"
+        "observations": "Equipo empresarial"
       },
-      "issue": "La batería se infló y deformó la base del equipo. El touchpad no funciona correctamente.",
-      "status": "pending",
-      "entryDate": "2026-04-07T08:00:00.000Z",
-      "estimatedDelivery": "2026-04-14",
-      "technician": "Carlos López",
-      "ticketNumber": "TK-2026-016",
-      "createdAt": "2026-04-07T08:00:00.000Z",
-      "updatedAt": "2026-04-07T08:00:00.000Z"
+      "issue": "El sistema operativo está corrupto, no inicia correctamente. Muestra pantalla azul.",
+      "status": "in-progress",
+      "entryDate": "2026-08-17T08:00:00.000Z",
+      "estimatedDelivery": "2026-08-19",
+      "diagnosis": "Archivos del sistema dañados. Posible infección de malware.",
+      "technician": "Juan Pérez",
+      "ticketNumber": "TK-2026-031",
+      "costBreakdown": {
+        "labor": 100.00,
+        "parts": 0,
+        "materials": 0,
+        "travel": 25.00,
+        "total": 125.00
+      },
+      "cost": 125.00,
+      "estimatedCost": 125.00,
+      "customerApproved": true,
+      "approvalDate": "2026-08-17T08:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-17T08:00:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        },
+        {
+          "status": "in-progress",
+          "date": "2026-08-18T09:00:00.000Z",
+          "note": "Diagnóstico y reparación del sistema operativo"
+        }
+      ],
+      "createdAt": "2026-08-17T08:00:00.000Z",
+      "updatedAt": "2026-08-18T09:00:00.000Z"
     },
     {
-      "id": "srvc-017",
-      "clientId": "cli-005",
-      "clientName": "Roberto Sánchez",
+      "id": "srvc-032",
+      "clientId": "cli-012",
+      "clientName": "Sofia Herrera",
       "computer": {
         "brand": "HP",
         "model": "Spectre x360",
@@ -550,50 +733,294 @@
         "storage": "1TB SSD",
         "graphics": "Intel Iris Xe",
         "operatingSystem": "Windows 11 Home",
-        "observations": "Estado premium"
+        "observations": "Equipo premium"
       },
-      "issue": "El puerto de carga USB-C está suelto, el cable se desconecta con cualquier movimiento.",
-      "status": "completed",
-      "entryDate": "2026-03-10T10:00:00.000Z",
-      "estimatedDelivery": "2026-03-17",
-      "deliveredDate": "2026-03-16T16:30:00.000Z",
-      "diagnosis": "Puerto USB-C dañado por uso prolongado y malas conexiones.",
-      "repairDetails": "Reemplazo del puerto USB-C. Soldadura de un puerto nuevo.",
-      "cost": 200.00,
-      "technician": "Juan Pérez",
-      "ticketNumber": "TK-2026-017",
-      "createdAt": "2026-03-10T10:00:00.000Z",
-      "updatedAt": "2026-03-16T16:30:00.000Z"
+      "issue": "La pantalla táctil no responde. El lápiz óptico no funciona.",
+      "status": "pending",
+      "entryDate": "2026-08-18T12:00:00.000Z",
+      "estimatedDelivery": "2026-08-22",
+      "technician": "Carlos López",
+      "ticketNumber": "TK-2026-032",
+      "costBreakdown": {
+        "labor": 130.00,
+        "parts": 200.00,
+        "materials": 15.00,
+        "travel": 0,
+        "total": 345.00
+      },
+      "cost": 345.00,
+      "estimatedCost": 345.00,
+      "customerApproved": false,
+      "approvalDate": "2026-08-18T12:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-18T12:00:00.000Z",
+          "note": "Servicio creado - Pendiente de aprobación del cliente"
+        }
+      ],
+      "createdAt": "2026-08-18T12:00:00.000Z",
+      "updatedAt": "2026-08-18T12:00:00.000Z"
     },
     {
-      "id": "srvc-018",
-      "clientId": "cli-006",
-      "clientName": "Patricia Díaz",
+      "id": "srvc-033",
+      "clientId": "cli-001",
+      "clientName": "Carlos Mendoza",
+      "computer": {
+        "brand": "Dell",
+        "model": "Precision 5560",
+        "type": "Laptop",
+        "processor": "Intel Xeon W-11955M",
+        "ram": "32GB DDR4",
+        "storage": "1TB SSD",
+        "graphics": "NVIDIA RTX A2000",
+        "operatingSystem": "Windows 11 Pro",
+        "observations": "Equipo de trabajo profesional"
+      },
+      "issue": "El equipo se congela al usar programas de diseño. La memoria RAM se satura.",
+      "status": "completed",
+      "entryDate": "2026-08-14T10:00:00.000Z",
+      "estimatedDelivery": "2026-08-17",
+      "deliveredDate": "2026-08-17T15:00:00.000Z",
+      "diagnosis": "Memoria RAM insuficiente para aplicaciones de diseño. Sobrecalentamiento.",
+      "repairDetails": "Ampliación de RAM a 64GB. Limpieza de ventiladores. Optimización del sistema.",
+      "technician": "Juan Pérez",
+      "ticketNumber": "TK-2026-033",
+      "costBreakdown": {
+        "labor": 150.00,
+        "parts": 350.00,
+        "materials": 25.00,
+        "travel": 0,
+        "total": 525.00
+      },
+      "cost": 525.00,
+      "estimatedCost": 525.00,
+      "customerApproved": true,
+      "approvalDate": "2026-08-14T10:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-14T10:00:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        },
+        {
+          "status": "in-progress",
+          "date": "2026-08-15T11:00:00.000Z",
+          "note": "Instalación de nueva memoria RAM y limpieza"
+        },
+        {
+          "status": "completed",
+          "date": "2026-08-17T15:00:00.000Z",
+          "note": "Equipo optimizado y funcionando correctamente"
+        }
+      ],
+      "createdAt": "2026-08-14T10:00:00.000Z",
+      "updatedAt": "2026-08-17T15:00:00.000Z"
+    },
+    {
+      "id": "srvc-034",
+      "clientId": "cli-002",
+      "clientName": "María Fernández",
+      "computer": {
+        "brand": "ASUS",
+        "model": "ZenBook 14",
+        "type": "Laptop",
+        "processor": "AMD Ryzen 7 5800U",
+        "ram": "16GB DDR4",
+        "storage": "512GB SSD",
+        "graphics": "AMD Radeon Graphics",
+        "operatingSystem": "Windows 11 Home",
+        "observations": "Estado impecable"
+      },
+      "issue": "El Wi-Fi no se conecta a redes de 5GHz. El bluetooth no detecta dispositivos.",
+      "status": "completed",
+      "entryDate": "2026-08-16T15:00:00.000Z",
+      "estimatedDelivery": "2026-08-18",
+      "deliveredDate": "2026-08-18T13:00:00.000Z",
+      "diagnosis": "Problema en el adaptador de red. Drivers desactualizados.",
+      "repairDetails": "Actualización de drivers de Wi-Fi y Bluetooth. Configuración de red.",
+      "technician": "Carlos López",
+      "ticketNumber": "TK-2026-034",
+      "costBreakdown": {
+        "labor": 80.00,
+        "parts": 0,
+        "materials": 0,
+        "travel": 25.00,
+        "total": 105.00
+      },
+      "cost": 105.00,
+      "estimatedCost": 105.00,
+      "customerApproved": true,
+      "approvalDate": "2026-08-16T15:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-16T15:00:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        },
+        {
+          "status": "in-progress",
+          "date": "2026-08-17T16:00:00.000Z",
+          "note": "Actualización de drivers y configuración"
+        },
+        {
+          "status": "completed",
+          "date": "2026-08-18T13:00:00.000Z",
+          "note": "Equipo entregado - Conexión Wi-Fi funcionando correctamente"
+        }
+      ],
+      "createdAt": "2026-08-16T15:00:00.000Z",
+      "updatedAt": "2026-08-18T13:00:00.000Z"
+    },
+    {
+      "id": "srvc-035",
+      "clientId": "cli-003",
+      "clientName": "Luis García",
       "computer": {
         "brand": "Acer",
         "model": "Predator Helios 300",
         "type": "Laptop",
         "processor": "Intel Core i7-10750H",
         "ram": "16GB DDR4",
-        "storage": "512GB SSD",
+        "storage": "512GB SSD + 1TB HDD",
         "graphics": "NVIDIA RTX 2060",
         "operatingSystem": "Windows 10 Pro",
-        "observations": "Ventilador ruidoso"
+        "observations": "Uso gaming"
       },
-      "issue": "El ventilador derecho hace un ruido fuerte como de rozamiento. La temperatura sube mucho.",
-      "status": "in-progress",
-      "entryDate": "2026-04-08T09:00:00.000Z",
-      "estimatedDelivery": "2026-04-15",
-      "diagnosis": "Cojinete del ventilador dañado. Acumulación de polvo.",
-      "technician": "Carlos López",
-      "ticketNumber": "TK-2026-018",
-      "createdAt": "2026-04-08T09:00:00.000Z",
-      "updatedAt": "2026-04-08T09:00:00.000Z"
+      "issue": "La laptop se apaga al jugar juegos pesados. Temperatura alcanza 95°C.",
+      "status": "delivered",
+      "entryDate": "2026-08-13T09:00:00.000Z",
+      "estimatedDelivery": "2026-08-17",
+      "deliveredDate": "2026-08-17T14:00:00.000Z",
+      "diagnosis": "Sobrecalentamiento extremo. Pasta térmica seca. Ventiladores obstruidos.",
+      "repairDetails": "Limpieza profunda de ventiladores y radiadores. Cambio de pasta térmica de alta calidad. Optimización de perfil de ventilación.",
+      "technician": "Juan Pérez",
+      "ticketNumber": "TK-2026-035",
+      "costBreakdown": {
+        "labor": 150.00,
+        "parts": 0,
+        "materials": 35.00,
+        "travel": 0,
+        "total": 185.00
+      },
+      "cost": 185.00,
+      "estimatedCost": 185.00,
+      "customerApproved": true,
+      "approvalDate": "2026-08-13T09:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-13T09:00:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        },
+        {
+          "status": "in-progress",
+          "date": "2026-08-14T10:00:00.000Z",
+          "note": "Limpieza y cambio de pasta térmica"
+        },
+        {
+          "status": "delivered",
+          "date": "2026-08-17T14:00:00.000Z",
+          "note": "Equipo entregado - Temperatura reducida a 75°C en juegos"
+        }
+      ],
+      "createdAt": "2026-08-13T09:00:00.000Z",
+      "updatedAt": "2026-08-17T14:00:00.000Z"
     },
     {
-      "id": "srvc-019",
-      "clientId": "cli-007",
-      "clientName": "Miguel Castro",
+      "id": "srvc-036",
+      "clientId": "cli-004",
+      "clientName": "Ana Torres",
+      "computer": {
+        "brand": "HP",
+        "model": "Envy 17",
+        "type": "Laptop",
+        "processor": "Intel Core i7-1165G7",
+        "ram": "16GB DDR4",
+        "storage": "1TB SSD",
+        "graphics": "Intel Iris Xe",
+        "operatingSystem": "Windows 11 Pro",
+        "observations": "Pantalla grande"
+      },
+      "issue": "El teclado numérico no funciona. Algunas teclas de la fila superior tampoco responden.",
+      "status": "pending",
+      "entryDate": "2026-08-18T13:00:00.000Z",
+      "estimatedDelivery": "2026-08-21",
+      "technician": "Carlos López",
+      "ticketNumber": "TK-2026-036",
+      "costBreakdown": {
+        "labor": 100.00,
+        "parts": 70.00,
+        "materials": 10.00,
+        "travel": 25.00,
+        "total": 205.00
+      },
+      "cost": 205.00,
+      "estimatedCost": 205.00,
+      "customerApproved": true,
+      "approvalDate": "2026-08-18T13:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-18T13:00:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado - Esperando repuesto"
+        }
+      ],
+      "createdAt": "2026-08-18T13:00:00.000Z",
+      "updatedAt": "2026-08-18T13:00:00.000Z"
+    },
+    {
+      "id": "srvc-037",
+      "clientId": "cli-005",
+      "clientName": "Roberto Sánchez",
+      "computer": {
+        "brand": "Dell",
+        "model": "Latitude 7420",
+        "type": "Laptop",
+        "processor": "Intel Core i5-1145G7",
+        "ram": "8GB DDR4",
+        "storage": "256GB SSD",
+        "graphics": "Intel Iris Xe",
+        "operatingSystem": "Windows 10 Pro",
+        "observations": "Equipo corporativo"
+      },
+      "issue": "El sistema operativo se congela constantemente. La memoria RAM está al 90% con pocas aplicaciones abiertas.",
+      "status": "in-progress",
+      "entryDate": "2026-08-17T13:00:00.000Z",
+      "estimatedDelivery": "2026-08-19",
+      "diagnosis": "Memoria RAM insuficiente. Posible malware consumiendo recursos.",
+      "technician": "Juan Pérez",
+      "ticketNumber": "TK-2026-037",
+      "costBreakdown": {
+        "labor": 120.00,
+        "parts": 120.00,
+        "materials": 15.00,
+        "travel": 0,
+        "total": 255.00
+      },
+      "cost": 255.00,
+      "estimatedCost": 255.00,
+      "customerApproved": true,
+      "approvalDate": "2026-08-17T13:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-17T13:00:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        },
+        {
+          "status": "in-progress",
+          "date": "2026-08-18T10:00:00.000Z",
+          "note": "Instalación de nueva RAM y análisis de malware"
+        }
+      ],
+      "createdAt": "2026-08-17T13:00:00.000Z",
+      "updatedAt": "2026-08-18T10:00:00.000Z"
+    },
+    {
+      "id": "srvc-038",
+      "clientId": "cli-006",
+      "clientName": "Patricia Díaz",
       "computer": {
         "brand": "Samsung",
         "model": "Galaxy Book 2 Pro",
@@ -602,45 +1029,164 @@
         "ram": "16GB LPDDR5",
         "storage": "512GB SSD",
         "graphics": "Intel Iris Xe",
-        "operatingSystem": "Windows 11 Pro",
-        "observations": "Muy delgada"
+        "operatingSystem": "Windows 11 Home",
+        "observations": "Muy ligera"
       },
-      "issue": "El equipo no se conecta a redes Wi-Fi de 5GHz, solo 2.4GHz. El bluetooth no detecta dispositivos.",
-      "status": "pending",
-      "entryDate": "2026-04-09T10:30:00.000Z",
-      "estimatedDelivery": "2026-04-16",
-      "technician": "Juan Pérez",
-      "ticketNumber": "TK-2026-019",
-      "createdAt": "2026-04-09T10:30:00.000Z",
-      "updatedAt": "2026-04-09T10:30:00.000Z"
+      "issue": "La batería se descarga muy rápido, dura solo 2 horas. El cargador hace ruido.",
+      "status": "completed",
+      "entryDate": "2026-08-16T11:00:00.000Z",
+      "estimatedDelivery": "2026-08-18",
+      "deliveredDate": "2026-08-18T14:00:00.000Z",
+      "diagnosis": "Batería degradada (solo 40% de capacidad). Cargador con daño en el cable.",
+      "repairDetails": "Reemplazo de batería y cargador. Calibración de batería nueva.",
+      "technician": "Carlos López",
+      "ticketNumber": "TK-2026-038",
+      "costBreakdown": {
+        "labor": 80.00,
+        "parts": 180.00,
+        "materials": 10.00,
+        "travel": 0,
+        "total": 270.00
+      },
+      "cost": 270.00,
+      "estimatedCost": 270.00,
+      "customerApproved": true,
+      "approvalDate": "2026-08-16T11:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-16T11:00:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        },
+        {
+          "status": "in-progress",
+          "date": "2026-08-17T09:00:00.000Z",
+          "note": "Reemplazo de batería y cargador"
+        },
+        {
+          "status": "completed",
+          "date": "2026-08-18T14:00:00.000Z",
+          "note": "Equipo entregado - Batería nueva con 100% de capacidad"
+        }
+      ],
+      "createdAt": "2026-08-16T11:00:00.000Z",
+      "updatedAt": "2026-08-18T14:00:00.000Z"
     },
     {
-      "id": "srvc-020",
+      "id": "srvc-039",
+      "clientId": "cli-007",
+      "clientName": "Miguel Castro",
+      "computer": {
+        "brand": "HP",
+        "model": "ProBook 450 G8",
+        "type": "Laptop",
+        "processor": "Intel Core i5-1135G7",
+        "ram": "8GB DDR4",
+        "storage": "256GB SSD",
+        "graphics": "Intel Iris Xe",
+        "operatingSystem": "Windows 10 Pro",
+        "observations": "Equipo con golpes"
+      },
+      "issue": "El puerto HDMI no funciona. La pantalla externa no se detecta.",
+      "status": "pending",
+      "entryDate": "2026-08-18T14:00:00.000Z",
+      "estimatedDelivery": "2026-08-21",
+      "technician": "Juan Pérez",
+      "ticketNumber": "TK-2026-039",
+      "costBreakdown": {
+        "labor": 100.00,
+        "parts": 150.00,
+        "materials": 20.00,
+        "travel": 25.00,
+        "total": 295.00
+      },
+      "cost": 295.00,
+      "estimatedCost": 295.00,
+      "customerApproved": false,
+      "approvalDate": "2026-08-18T14:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-18T14:00:00.000Z",
+          "note": "Servicio creado - Pendiente de aprobación del cliente"
+        }
+      ],
+      "createdAt": "2026-08-18T14:00:00.000Z",
+      "updatedAt": "2026-08-18T14:00:00.000Z"
+    },
+    {
+      "id": "srvc-040",
       "clientId": "cli-008",
       "clientName": "Laura Morales",
       "computer": {
-        "brand": "Dell",
-        "model": "XPS 15 9510",
+        "brand": "Apple",
+        "model": "MacBook Pro 13",
         "type": "Laptop",
-        "processor": "Intel Core i7-11800H",
-        "ram": "32GB DDR4",
-        "storage": "1TB SSD",
-        "graphics": "NVIDIA RTX 3050 Ti",
-        "operatingSystem": "Windows 11 Pro",
-        "observations": "Equipo de alta gama"
+        "processor": "Apple M1",
+        "ram": "8GB",
+        "storage": "256GB SSD",
+        "graphics": "Apple GPU",
+        "operatingSystem": "macOS Monterey",
+        "observations": "Estado excelente"
       },
-      "issue": "La pantalla tiene una línea vertical de color morado. El touchpad a veces no responde.",
+      "issue": "El sistema operativo no arranca, muestra la pantalla de recuperación. No puede reinstalar macOS.",
       "status": "delivered",
-      "entryDate": "2026-03-05T08:00:00.000Z",
-      "estimatedDelivery": "2026-03-12",
-      "deliveredDate": "2026-03-11T17:00:00.000Z",
-      "diagnosis": "Panel LCD con falla. Problema en el flex del touchpad.",
-      "repairDetails": "Reemplazo de pantalla por una nueva. Conexión y calibración de touchpad.",
-      "cost": 450.00,
+      "entryDate": "2026-08-13T15:00:00.000Z",
+      "estimatedDelivery": "2026-08-17",
+      "deliveredDate": "2026-08-17T12:00:00.000Z",
+      "diagnosis": "Daño en el SSD. Sistema operativo corrupto.",
+      "repairDetails": "Reemplazo de SSD por uno nuevo de 512GB. Instalación de macOS Monterey.",
       "technician": "Carlos López",
-      "ticketNumber": "TK-2026-020",
-      "createdAt": "2026-03-05T08:00:00.000Z",
-      "updatedAt": "2026-03-11T17:00:00.000Z"
+      "ticketNumber": "TK-2026-040",
+      "costBreakdown": {
+        "labor": 200.00,
+        "parts": 250.00,
+        "materials": 30.00,
+        "travel": 0,
+        "total": 480.00
+      },
+      "cost": 480.00,
+      "estimatedCost": 480.00,
+      "customerApproved": true,
+      "approvalDate": "2026-08-13T15:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "date": "2026-08-13T15:00:00.000Z",
+          "note": "Servicio creado con presupuesto aprobado"
+        },
+        {
+          "status": "in-progress",
+          "date": "2026-08-14T12:00:00.000Z",
+          "note": "Reemplazo de SSD e instalación de macOS"
+        },
+        {
+          "status": "delivered",
+          "date": "2026-08-17T12:00:00.000Z",
+          "note": "MacBook entregado con nuevo SSD y sistema operativo instalado"
+        }
+      ],
+      "createdAt": "2026-08-13T15:00:00.000Z",
+      "updatedAt": "2026-08-17T12:00:00.000Z"
+    }
+ ],
+  "expenses": [
+    {
+      "id": "exp-001",
+      "description": "Compra de pasta térmica y herramientas",
+      "category": "materials",
+      "amount": 45.00,
+      "date": "2026-03-15T10:00:00.000Z",
+      "createdAt": "2026-03-15T10:00:00.000Z"
+    },
+    {
+      "id": "exp-002",
+      "description": "Disco SSD 512GB para reparación",
+      "category": "parts",
+      "amount": 120.00,
+      "date": "2026-03-20T14:30:00.000Z",
+      "serviceId": "srvc-002",
+      "createdAt": "2026-03-20T14:30:00.000Z"
     }
   ]
 }
