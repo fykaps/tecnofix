@@ -25,7 +25,7 @@ export default function EditClientPage() {
             toast.add({
                 title: 'Error',
                 description: 'Cliente no encontrado',
-                variant: 'destructive',
+                type: 'error',
             });
             router.push('/clients');
         }

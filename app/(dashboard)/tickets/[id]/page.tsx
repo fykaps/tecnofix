@@ -25,7 +25,7 @@ export default function TicketPage() {
             toast.add({
                 title: 'Error',
                 description: 'Ticket no encontrado',
-                variant: 'destructive',
+                type: 'error',
             });
             router.push('/services');
         }

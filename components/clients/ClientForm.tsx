@@ -61,6 +61,7 @@ export function ClientForm({ initialData, clientId, mode = 'create' }: ClientFor
                 toast.add({
                     title: 'Cliente creado',
                     description: `${data.name} ha sido registrado exitosamente`,
+                    type: 'success',
                 });
             } else if (clientId) {
                 // Actualizar cliente existente
@@ -75,6 +76,7 @@ export function ClientForm({ initialData, clientId, mode = 'create' }: ClientFor
                     toast.add({
                         title: 'Cliente actualizado',
                         description: `${data.name} ha sido actualizado exitosamente`,
+                        type: 'success',
                     });
                 }
             }
@@ -84,7 +86,7 @@ export function ClientForm({ initialData, clientId, mode = 'create' }: ClientFor
             toast.add({
                 title: 'Error',
                 description: 'No se pudo guardar el cliente',
-                variant: 'destructive',
+                type: 'error',
             });
         }
     };

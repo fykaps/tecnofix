@@ -69,6 +69,7 @@ export function ClientTable({ clients: initialClients, onClientDeleted }: Client
             toast.add({
                 title: 'Cliente eliminado',
                 description: `${selectedClient.name} fue eliminado correctamente`,
+                type: 'success',
             });
             if (onClientDeleted) onClientDeleted();
             setShowDeleteDialog(false);
@@ -76,7 +77,7 @@ export function ClientTable({ clients: initialClients, onClientDeleted }: Client
             toast.add({
                 title: 'Error',
                 description: 'No se pudo eliminar el cliente',
-                variant: 'destructive',
+                type: 'error',
             });
         } finally {
             setIsDeleting(false);

@@ -25,7 +25,7 @@ export default function EditServicePage() {
             toast.add({
                 title: 'Error',
                 description: 'Servicio no encontrado',
-                variant: 'destructive',
+                type: 'error',
             });
             router.push('/services');
         }

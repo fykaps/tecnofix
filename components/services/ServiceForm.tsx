@@ -94,6 +94,7 @@ export function ServiceForm({ initialData, serviceId, mode = 'create' }: Service
         toast.add({
             title: 'Cliente seleccionado',
             description: `${client.name} ha sido seleccionado`,
+            type: 'success',
         });
     };
 
@@ -120,6 +121,7 @@ export function ServiceForm({ initialData, serviceId, mode = 'create' }: Service
                 toast.add({
                     title: 'Servicio creado',
                     description: `Ticket ${newService.ticketNumber} creado exitosamente`,
+                    type: 'success',
                 });
             } else if (serviceId) {
                 // Editar servicio existente
@@ -134,6 +136,7 @@ export function ServiceForm({ initialData, serviceId, mode = 'create' }: Service
                     toast.add({
                         title: 'Servicio actualizado',
                         description: `Ticket ${updatedService.ticketNumber} actualizado`,
+                        type: 'success',
                     });
                 }
             }
@@ -143,7 +146,7 @@ export function ServiceForm({ initialData, serviceId, mode = 'create' }: Service
             toast.add({
                 title: 'Error',
                 description: 'No se pudo guardar el servicio',
-                variant: 'destructive',
+                type: 'error',
             });
         }
     };

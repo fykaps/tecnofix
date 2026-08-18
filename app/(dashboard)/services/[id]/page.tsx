@@ -33,7 +33,7 @@ export default function ServiceDetailPage() {
             toast.add({
                 title: 'Error',
                 description: 'Servicio no encontrado',
-                variant: 'destructive',
+                type: 'error',
             });
             router.push('/services');
         }
@@ -52,12 +52,13 @@ export default function ServiceDetailPage() {
             toast.add({
                 title: 'Estado actualizado',
                 description: `El servicio ha sido actualizado a ${getStatusLabel(newStatus)}`,
+                type: 'success',
             });
         } catch (error) {
             toast.add({
                 title: 'Error',
                 description: 'No se pudo actualizar el estado',
-                variant: 'destructive',
+                type: 'error',
             });
         }
     };

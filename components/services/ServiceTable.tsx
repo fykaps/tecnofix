@@ -98,12 +98,13 @@ export function ServiceTable({ services: initialServices, onServiceDeleted }: Se
             toast.add({
                 title: 'Estado actualizado',
                 description: `El servicio ha sido actualizado a ${getStatusLabel(newStatus)}`,
+                type: 'success',
             });
         } catch (error) {
             toast.add({
                 title: 'Error',
                 description: 'No se pudo actualizar el estado',
-                variant: 'destructive',
+                type: 'error',
             });
         }
     };
@@ -119,6 +120,7 @@ export function ServiceTable({ services: initialServices, onServiceDeleted }: Se
             toast.add({
                 title: 'Servicio eliminado',
                 description: `Ticket ${selectedService.ticketNumber} eliminado`,
+                type: 'success',
             });
             setShowDeleteDialog(false);
             if (onServiceDeleted) onServiceDeleted();
@@ -126,7 +128,7 @@ export function ServiceTable({ services: initialServices, onServiceDeleted }: Se
             toast.add({
                 title: 'Error',
                 description: 'No se pudo eliminar el servicio',
-                variant: 'destructive',
+                type: 'error',
             });
         } finally {
             setIsDeleting(false);

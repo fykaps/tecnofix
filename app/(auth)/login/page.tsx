@@ -51,7 +51,7 @@ export default function LoginPage() {
                 toast.add({
                     title: '¡Bienvenido!',
                     description: 'Inicio de sesión exitoso',
-                    className: 'bg-green-50 border-green-200 text-green-800',
+                    type: 'success',
                 });
                 // La redirección se maneja en el contexto
             } else {
@@ -59,7 +59,7 @@ export default function LoginPage() {
                 toast.add({
                     title: 'Error de autenticación',
                     description: result.error || 'Usuario o contraseña incorrectos',
-                    variant: 'destructive',
+                    type: 'error',
                 });
                 // Limpiar campos en caso de error
                 setPassword('');
@@ -69,7 +69,7 @@ export default function LoginPage() {
             toast.add({
                 title: 'Error',
                 description: 'Ocurrió un error al iniciar sesión',
-                variant: 'destructive',
+                type: 'error',
             });
         } finally {
             setIsLoading(false);
