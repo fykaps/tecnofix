@@ -486,6 +486,10 @@ export function ServiceTable({ services: initialServices, onServiceDeleted }: Se
         }
     };
 
+    const canDelete = (status: Service['status']) => {
+        return status !== 'completed' && status !== 'delivered';
+    };
+
     const handleDelete = () => {
         if (!selectedService) return;
         setIsDeleting(true);
@@ -593,6 +597,7 @@ export function ServiceTable({ services: initialServices, onServiceDeleted }: Se
                             <TableHead>Ticket</TableHead>
                             <TableHead>Cliente</TableHead>
                             <TableHead>Equipo</TableHead>
+                            <TableHead>Técnico</TableHead>
                             <TableHead>Fecha Ingreso</TableHead>
                             <TableHead>Costo</TableHead>
                             <TableHead>Estado</TableHead>
@@ -628,19 +633,24 @@ export function ServiceTable({ services: initialServices, onServiceDeleted }: Se
                                             </span>
                                         </TableCell>
                                         <TableCell>
+                                            <span className="text-sm">
+                                                {service.technicianName || service.technician || 'No asignado'}
+                                            </span>
+                                        </TableCell>
+                                        <TableCell>
                                             {formatDate(service.entryDate)}
                                         </TableCell>
                                         <TableCell>
                                             <span className="font-medium text-blue-600">
                                                 {formatCurrency(service.cost || 0)}
                                             </span>
-                                            {service.costBreakdown && (
+                                            {/* {service.costBreakdown && (
                                                 <span className="text-xs text-gray-400 block">
                                                     {service.costBreakdown.labor > 0 ? `M.O. ${formatCurrency(service.costBreakdown.labor)}` : ''}
                                                     {service.costBreakdown.parts > 0 ? ` + Rep. ${formatCurrency(service.costBreakdown.parts)}` : ''}
                                                     {service.costBreakdown.travel > 0 ? ` + Viaje ${formatCurrency(service.costBreakdown.travel)}` : ''}
                                                 </span>
-                                            )}
+                                            )} */}
                                         </TableCell>
                                         <TableCell>
                                             <Badge className={getStatusColor(service.status)}>
@@ -683,19 +693,10 @@ export function ServiceTable({ services: initialServices, onServiceDeleted }: Se
                                                             Editar
                                                         </DropdownMenuItem>
                                                     ) : (
-                                                        <TooltipProvider>
-                                                            <Tooltip>
-                                                                <TooltipTrigger asChild>
-                                                                    <DropdownMenuItem disabled className="opacity-50 cursor-not-allowed">
-                                                                        <Lock className="h-4 w-4 mr-2" />
-                                                                        Editar (bloqueado)
-                                                                    </DropdownMenuItem>
-                                                                </TooltipTrigger>
-                                                                <TooltipContent>
-                                                                    <p>No se puede editar un servicio {getStatusLabel(service.status).toLowerCase()}</p>
-                                                                </TooltipContent>
-                                                            </Tooltip>
-                                                        </TooltipProvider>
+                                                        <DropdownMenuItem disabled className="opacity-50 cursor-not-allowed">
+                                                            <Pencil className="h-4 w-4 mr-2" />
+                                                            Editar
+                                                        </DropdownMenuItem>
                                                     )}
 
                                                     <DropdownMenuItem onClick={() => router.push(`/tickets/${service.id}`)}>
@@ -735,16 +736,24 @@ export function ServiceTable({ services: initialServices, onServiceDeleted }: Se
                                                         </DropdownMenuItem>
                                                     )}
                                                     <DropdownMenuSeparator />
-                                                    <DropdownMenuItem
-                                                        className="text-red-600 focus:text-red-600"
-                                                        onClick={() => {
-                                                            setSelectedService(service);
-                                                            setShowDeleteDialog(true);
-                                                        }}
-                                                    >
-                                                        <Trash2 className="h-4 w-4 mr-2" />
-                                                        Eliminar
-                                                    </DropdownMenuItem>
+                                                    {/* ✅ Eliminar - solo habilitado si NO está completado o entregado */}
+                                                    {canDelete(service.status) ? (
+                                                        <DropdownMenuItem
+                                                            className="text-red-600 focus:text-red-600"
+                                                            onClick={() => {
+                                                                setSelectedService(service);
+                                                                setShowDeleteDialog(true);
+                                                            }}
+                                                        >
+                                                            <Trash2 className="h-4 w-4 mr-2" />
+                                                            Eliminar
+                                                        </DropdownMenuItem>
+                                                    ) : (
+                                                        <DropdownMenuItem disabled className="opacity-50 cursor-not-allowed text-red-400">
+                                                            <Trash2 className="h-4 w-4 mr-2" />
+                                                            Eliminar
+                                                        </DropdownMenuItem>
+                                                    )}
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </TableCell>

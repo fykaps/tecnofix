@@ -1,10 +1,11 @@
 import { Client } from '@/types/client.types';
-import { Service, Expense } from '@/types/service.types';
+import { Service, Technician, Expense } from '@/types/service.types';
 import initialData from './initial-data.json';
 
 const STORAGE_KEYS = {
     CLIENTS: 'tecnoFix_clients',
     SERVICES: 'tecnoFix_services',
+    TECHNICIANS: 'tecnoFix_technicians',
     EXPENSES: 'tecnoFix_expenses',
 };
 
@@ -18,6 +19,10 @@ export const initializeStorage = (): void => {
 
     if (!localStorage.getItem(STORAGE_KEYS.SERVICES)) {
         localStorage.setItem(STORAGE_KEYS.SERVICES, JSON.stringify(initialData.services));
+    }
+
+    if (!localStorage.getItem(STORAGE_KEYS.TECHNICIANS)) {
+        localStorage.setItem(STORAGE_KEYS.TECHNICIANS, JSON.stringify(initialData.technicians || []));
     }
 
     if (!localStorage.getItem(STORAGE_KEYS.EXPENSES)) {
@@ -97,6 +102,58 @@ export const deleteService = (id: string): void => {
     const services = getServices();
     const filtered = services.filter(s => s.id !== id);
     localStorage.setItem(STORAGE_KEYS.SERVICES, JSON.stringify(filtered));
+};
+
+// ============================================================
+// TÉCNICOS
+// ============================================================
+
+export const getTechnicians = (): Technician[] => {
+    if (typeof window === 'undefined') return [];
+    const data = localStorage.getItem(STORAGE_KEYS.TECHNICIANS);
+    return data ? JSON.parse(data) : [];
+};
+
+export const getTechnician = (id: string): Technician | undefined => {
+    const technicians = getTechnicians();
+    return technicians.find(t => t.id === id);
+};
+
+export const saveTechnician = (technician: Technician): void => {
+    if (typeof window === 'undefined') return;
+    const technicians = getTechnicians();
+    const index = technicians.findIndex(t => t.id === technician.id);
+    if (index >= 0) {
+        technicians[index] = technician;
+    } else {
+        technicians.push(technician);
+    }
+    localStorage.setItem(STORAGE_KEYS.TECHNICIANS, JSON.stringify(technicians));
+};
+
+export const deleteTechnician = (id: string): void => {
+    if (typeof window === 'undefined') return;
+    const technicians = getTechnicians();
+    const filtered = technicians.filter(t => t.id !== id);
+    localStorage.setItem(STORAGE_KEYS.TECHNICIANS, JSON.stringify(filtered));
+};
+
+export const updateTechnicianStatus = (id: string, status: Technician['status'], serviceId?: string): void => {
+    const technician = getTechnician(id);
+    if (technician) {
+        technician.status = status;
+        technician.currentServiceId = serviceId;
+        technician.updatedAt = new Date().toISOString();
+        saveTechnician(technician);
+    }
+};
+
+export const getAvailableTechnicians = (): Technician[] => {
+    return getTechnicians().filter(t => t.status === 'available');
+};
+
+export const getBusyTechnicians = (): Technician[] => {
+    return getTechnicians().filter(t => t.status === 'busy');
 };
 
 // Gastos

@@ -84,6 +84,7 @@ import {
 import { cn } from '@/lib/utils';
 
 import { SERVICE_CATALOG } from '@/lib/data/service-prices';
+import { TechnicianSelector } from './TechnicianSelector';
 
 interface ServiceFormProps {
     initialData?: ServiceFormValues;
@@ -102,6 +103,8 @@ export function ServiceForm({
     const [searchTerm, setSearchTerm] = useState('');
     const [showClientSearch, setShowClientSearch] = useState(false);
     const [selectedClient, setSelectedClient] = useState<Client | null>(null);
+    const [selectedTechnicianId, setSelectedTechnicianId] = useState<string>('');
+    const [selectedTechnicianName, setSelectedTechnicianName] = useState<string>('');
 
     const [costBreakdown, setCostBreakdown] =
         useState<CostBreakdown>({
@@ -239,6 +242,12 @@ export function ServiceForm({
                         'clientName',
                         client.name
                     );
+                }
+
+                if (service.technician) {
+                    setSelectedTechnicianId(service.technician);
+                    setSelectedTechnicianName(service.technicianName || '');
+                    form.setValue('technician', service.technician);
                 }
             }
         }
@@ -406,6 +415,14 @@ export function ServiceForm({
         };
 
         return labels[status] || status;
+    };
+
+    // Función para manejar cambio de técnico
+    const handleTechnicianChange = (technicianId: string, technicianName: string) => {
+        setSelectedTechnicianId(technicianId);
+        setSelectedTechnicianName(technicianName);
+        form.setValue('technician', technicianId);
+        form.setValue('technicianName', technicianName);
     };
 
     // =========================================================
@@ -1333,23 +1350,21 @@ export function ServiceForm({
                                 )}
                             />
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 gap-4">
                                 <FormField
                                     control={form.control}
                                     name="technician"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>
-                                                Técnico Responsable
-                                            </FormLabel>
-
+                                            <FormLabel>Técnico Responsable</FormLabel>
                                             <FormControl>
-                                                <Input
-                                                    {...field}
-                                                    placeholder="Nombre del técnico..."
+                                                <TechnicianSelector
+                                                    value={selectedTechnicianId || field.value}
+                                                    onChange={handleTechnicianChange}
+                                                    disabled={mode === 'edit' && originalService?.status === 'completed' || originalService?.status === 'delivered'}
+                                                    showAddTechnician={true}
                                                 />
                                             </FormControl>
-
                                             <FormMessage />
                                         </FormItem>
                                     )}

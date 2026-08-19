@@ -13,8 +13,9 @@ import {
     Wallet,
     TrendingDown,
     Receipt,
+    UserCheck,
 } from 'lucide-react';
-import { getClients, getServices, getExpenses, getFinancialSummary } from '@/lib/data/storage';
+import { getClients, getServices, getExpenses, getFinancialSummary, getTechnicians, getAvailableTechnicians, getBusyTechnicians } from '@/lib/data/storage';
 import { Service, Expense, FinancialSummary } from '@/types/service.types';
 import { MetricCard } from '@/components/dashboard/MetricCard';
 import { RevenueChart } from '@/components/dashboard/RevenueChart';
@@ -51,6 +52,10 @@ export default function DashboardPage() {
     const [dailyData, setDailyData] = useState<Array<{ day: string; servicios: number }>>([]);
     const [statusData, setStatusData] = useState<Array<{ name: string; value: number; color: string }>>([]);
     const [expensesData, setExpensesData] = useState<Array<{ name: string; gastos: number }>>([]);
+
+    const technicians = getTechnicians();
+    const available = getAvailableTechnicians();
+    const busy = getBusyTechnicians();
 
     const loadAllData = () => {
         const clients = getClients();
@@ -372,6 +377,39 @@ export default function DashboardPage() {
                                     <span className="text-sm font-medium">Por Cobrar</span>
                                 </div>
                                 <span className="font-bold text-yellow-600">{formatCurrency(financial.pendingInvoices)}</span>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <Card className="border-none shadow-sm">
+                    <CardHeader>
+                        <CardTitle className="text-lg font-semibold flex items-center gap-2">
+                            <Users className="h-5 w-5 text-blue-600" />
+                            Técnicos
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="space-y-3">
+                            <div className="flex justify-between items-center">
+                                <span className="text-sm text-gray-600">Total</span>
+                                <span className="font-bold">{technicians.length}</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span className="text-sm text-gray-600">Disponibles</span>
+                                <Badge variant="outline" className="bg-green-50 text-green-600 border-green-200">
+                                    <UserCheck className="h-3 w-3 mr-1" />
+                                    {available.length}
+                                </Badge>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span className="text-sm text-gray-600">Ocupados</span>
+                                <Badge variant="outline" className="bg-yellow-50 text-yellow-600 border-yellow-200">
+                                    <Clock className="h-3 w-3 mr-1" />
+                                    {busy.length}
+                                </Badge>
                             </div>
                         </div>
                     </CardContent>

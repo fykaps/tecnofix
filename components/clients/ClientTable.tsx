@@ -32,9 +32,9 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { MoreHorizontal, Pencil, Trash2, Eye, Search } from 'lucide-react';
+import { MoreHorizontal, Pencil, Trash2, Eye, Search, Wrench } from 'lucide-react';
 import { Client } from '@/types/client.types';
-import { deleteClient } from '@/lib/data/storage';
+import { deleteClient, getClients, getServices } from '@/lib/data/storage';
 import { toast } from '@/components/ui/toast';
 
 interface ClientTableProps {
@@ -49,9 +49,17 @@ export function ClientTable({ clients: initialClients, onClientDeleted }: Client
     const [selectedClient, setSelectedClient] = useState<Client | null>(null);
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
+    const [hasServices, setHasServices] = useState<Record<string, boolean>>({});
 
     useEffect(() => {
         setClients(initialClients);
+        // Verificar servicios para cada cliente
+        const servicesMap: Record<string, boolean> = {};
+        const allServices = getServices();
+        initialClients.forEach(client => {
+            servicesMap[client.id] = allServices.some(s => s.clientId === client.id);
+        });
+        setHasServices(servicesMap);
     }, [initialClients]);
 
     const filteredClients = clients.filter(client =>
@@ -62,6 +70,19 @@ export function ClientTable({ clients: initialClients, onClientDeleted }: Client
 
     const handleDelete = async () => {
         if (!selectedClient) return;
+
+        // ✅ Verificar si el cliente tiene servicios
+        if (hasServices[selectedClient.id]) {
+            toast.add({
+                title: 'No se puede eliminar',
+                description: `El cliente ${selectedClient.name} tiene servicios asociados. No se puede eliminar.`,
+                type: 'error',
+            });
+            setShowDeleteDialog(false);
+            setSelectedClient(null);
+            return;
+        }
+
         setIsDeleting(true);
         try {
             deleteClient(selectedClient.id);
@@ -69,7 +90,7 @@ export function ClientTable({ clients: initialClients, onClientDeleted }: Client
             toast.add({
                 title: 'Cliente eliminado',
                 description: `${selectedClient.name} fue eliminado correctamente`,
-                type: 'success',
+                type: 'success'
             });
             if (onClientDeleted) onClientDeleted();
             setShowDeleteDialog(false);
@@ -77,7 +98,7 @@ export function ClientTable({ clients: initialClients, onClientDeleted }: Client
             toast.add({
                 title: 'Error',
                 description: 'No se pudo eliminar el cliente',
-                type: 'error',
+                type: 'error'
             });
         } finally {
             setIsDeleting(false);
@@ -130,58 +151,79 @@ export function ClientTable({ clients: initialClients, onClientDeleted }: Client
                                 </TableCell>
                             </TableRow>
                         ) : (
-                            filteredClients.map((client) => (
-                                <TableRow key={client.id} className="hover:bg-gray-50">
-                                    <TableCell className="font-medium">{client.name}</TableCell>
-                                    <TableCell>{client.phone}</TableCell>
-                                    <TableCell>
-                                        <Badge variant="outline" className="bg-gray-100">
-                                            {getDocumentLabel(client.documentType)}: {client.documentNumber}
-                                        </Badge>
-                                    </TableCell>
-                                    <TableCell className="text-gray-500">{client.email || '-'}</TableCell>
-                                    <TableCell className="text-right">
-                                        <DropdownMenu>
-                                            {/* ✅ Usamos un <button> nativo en el render */}
-                                            <DropdownMenuTrigger
-                                                render={
-                                                    <button
-                                                        type="button"
-                                                        className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-gray-100 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                                                        aria-label="Abrir menú de acciones"
-                                                    >
-                                                        <MoreHorizontal className="h-4 w-4 text-gray-500" />
-                                                    </button>
-                                                }
-                                            />
-                                            <DropdownMenuContent align="end">
-                                                <DropdownMenuGroup>
-                                                    <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-                                                </DropdownMenuGroup>
-                                                <DropdownMenuSeparator />
-                                                <DropdownMenuItem onClick={() => router.push(`/clients/${client.id}`)}>
-                                                    <Eye className="h-4 w-4 mr-2" />
-                                                    Ver detalles
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem onClick={() => router.push(`/clients/${client.id}/edit`)}>
-                                                    <Pencil className="h-4 w-4 mr-2" />
-                                                    Editar
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem
-                                                    className="text-red-600 focus:text-red-600"
-                                                    onClick={() => {
-                                                        setSelectedClient(client);
-                                                        setShowDeleteDialog(true);
-                                                    }}
-                                                >
-                                                    <Trash2 className="h-4 w-4 mr-2" />
-                                                    Eliminar
-                                                </DropdownMenuItem>
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
-                                    </TableCell>
-                                </TableRow>
-                            ))
+                            filteredClients.map((client) => {
+                                const clientHasServices = hasServices[client.id] || false;
+                                return (
+                                    <TableRow key={client.id} className="hover:bg-gray-50">
+                                        <TableCell className="font-medium">{client.name}</TableCell>
+                                        <TableCell>{client.phone}</TableCell>
+                                        <TableCell>
+                                            <Badge variant="outline" className="bg-gray-100">
+                                                {getDocumentLabel(client.documentType)}: {client.documentNumber}
+                                            </Badge>
+                                        </TableCell>
+                                        <TableCell className="text-gray-500">{client.email || '-'}</TableCell>
+                                        <TableCell className="text-right">
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger
+                                                    render={
+                                                        <button
+                                                            type="button"
+                                                            className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-gray-100 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                                                            aria-label="Abrir menú de acciones"
+                                                        >
+                                                            <MoreHorizontal className="h-4 w-4 text-gray-500" />
+                                                        </button>
+                                                    }
+                                                />
+                                                <DropdownMenuContent align="end">
+                                                    <DropdownMenuGroup>
+                                                        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+                                                    </DropdownMenuGroup>
+                                                    <DropdownMenuSeparator />
+
+                                                    {/* ✅ Ver Detalles */}
+                                                    <DropdownMenuItem onClick={() => router.push(`/clients/${client.id}`)}>
+                                                        <Eye className="h-4 w-4 mr-2" />
+                                                        Ver detalles
+                                                    </DropdownMenuItem>
+
+                                                    <DropdownMenuItem onClick={() => router.push(`/clients/${client.id}/edit`)}>
+                                                        <Pencil className="h-4 w-4 mr-2" />
+                                                        Editar
+                                                    </DropdownMenuItem>
+
+                                                    <DropdownMenuItem onClick={() => router.push(`/services/new?clientId=${client.id}`)}>
+                                                        <Wrench className="h-4 w-4 mr-2" />
+                                                        Nuevo Servicio
+                                                    </DropdownMenuItem>
+
+                                                    <DropdownMenuSeparator />
+
+                                                    {/* ✅ Eliminar - deshabilitado si tiene servicios */}
+                                                    {clientHasServices ? (
+                                                        <DropdownMenuItem disabled className="opacity-50 cursor-not-allowed text-gray-400">
+                                                            <Trash2 className="h-4 w-4 mr-2" />
+                                                            Eliminar (tiene servicios)
+                                                        </DropdownMenuItem>
+                                                    ) : (
+                                                        <DropdownMenuItem
+                                                            className="text-red-600 focus:text-red-600"
+                                                            onClick={() => {
+                                                                setSelectedClient(client);
+                                                                setShowDeleteDialog(true);
+                                                            }}
+                                                        >
+                                                            <Trash2 className="h-4 w-4 mr-2" />
+                                                            Eliminar
+                                                        </DropdownMenuItem>
+                                                    )}
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })
                         )}
                     </TableBody>
                 </Table>

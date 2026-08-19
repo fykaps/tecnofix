@@ -18,6 +18,18 @@ export interface CostBreakdown {
     total: number;
 }
 
+export interface Technician {
+    id: string;
+    name: string;
+    phone: string;
+    email?: string;
+    specialty: string[];  // Ej: ['hardware', 'software', 'redes']
+    status: 'available' | 'busy' | 'off';
+    currentServiceId?: string;  // ID del servicio que está atendiendo
+    createdAt: string;
+    updatedAt: string;
+}
+
 export interface Service {
     id: string;
     clientId: string;
@@ -31,7 +43,9 @@ export interface Service {
     diagnosis?: string;
     repairDetails?: string;
     costBreakdown: CostBreakdown;
-    technician: string;
+    technician: string;        // ✅ ID del técnico asignado
+    technicianName: string;    // ✅ Nombre del técnico (para mostrar rápido)
+    technicianAssignedAt?: string; // ✅ Fecha de asignación
     ticketNumber: string;
     createdAt: string;
     updatedAt: string;

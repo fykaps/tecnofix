@@ -2,12 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { TicketPrinter } from '@/components/tickets/TicketPrinter';
+import { ArrowLeft, Loader2 } from 'lucide-react';
 import { getService } from '@/lib/data/storage';
 import { Service } from '@/types/service.types';
-import { ArrowLeft } from 'lucide-react';
+import { TicketPrinter } from '@/components/tickets/TicketPrinter';
 import { toast } from '@/components/ui/toast';
 
 export default function TicketPage() {
@@ -15,6 +14,7 @@ export default function TicketPage() {
     const router = useRouter();
     const [service, setService] = useState<Service | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [open, setOpen] = useState(true);
 
     useEffect(() => {
         const id = params.id as string;
@@ -32,12 +32,25 @@ export default function TicketPage() {
         setIsLoading(false);
     }, [params.id, router]);
 
+    const handleClose = () => {
+        setOpen(false);
+        router.push('/services');
+    };
+
     if (isLoading) {
-        return <div className="flex items-center justify-center h-64">Cargando ticket...</div>;
+        return (
+            <div className="flex items-center justify-center h-64">
+                <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+            </div>
+        );
     }
 
     if (!service) {
-        return <div className="flex items-center justify-center h-64">Ticket no encontrado</div>;
+        return (
+            <div className="flex items-center justify-center h-64">
+                <p className="text-gray-500">Ticket no encontrado</p>
+            </div>
+        );
     }
 
     return (
@@ -48,19 +61,18 @@ export default function TicketPage() {
                     Volver
                 </Button>
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-900">Ticket #{service.ticketNumber}</h2>
+                    <h2 className="text-2xl font-bold text-gray-900">
+                        Ticket #{service.ticketNumber}
+                    </h2>
                     <p className="text-gray-500">Cliente: {service.clientName}</p>
                 </div>
             </div>
 
-            <Card className="border-none shadow-sm">
-                <CardHeader>
-                    <CardTitle className="text-lg font-semibold">Ticket de Servicio</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <TicketPrinter service={service} onClose={() => router.push('/services')} />
-                </CardContent>
-            </Card>
+            <TicketPrinter
+                service={service}
+                onClose={handleClose}
+                open={open}
+            />
         </div>
     );
 }
