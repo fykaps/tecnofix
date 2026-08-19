@@ -1,359 +1,50 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-    DropdownMenuGroup,
-} from '@/components/ui/dropdown-menu';
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select';
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { MoreHorizontal, Eye, Printer, Pencil, Trash2, Plus, Search } from 'lucide-react';
+import { getServices } from '@/lib/data/storage';
 import { Service } from '@/types/service.types';
-import { getServices, updateServiceStatus, deleteService } from '@/lib/data/storage';
-import { toast } from '@/components/ui/toast';
 import { ServiceTable } from '@/components/services/ServiceTable';
 
 export default function ServicesPage() {
-    const router = useRouter();
     const [services, setServices] = useState<Service[]>([]);
-    const [filteredServices, setFilteredServices] = useState<Service[]>([]);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [statusFilter, setStatusFilter] = useState<string>('all');
-    const [selectedService, setSelectedService] = useState<Service | null>(null);
-    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
     const loadServices = () => {
         const data = getServices();
         setServices(data);
-        applyFilters(data, searchTerm, statusFilter);
-    };
-
-    const applyFilters = (data: Service[], term: string, status: string) => {
-        let filtered = data;
-        if (term) {
-            filtered = filtered.filter(s =>
-                s.clientName.toLowerCase().includes(term.toLowerCase()) ||
-                s.ticketNumber.toLowerCase().includes(term.toLowerCase()) ||
-                s.computer.brand.toLowerCase().includes(term.toLowerCase())
-            );
-        }
-        if (status !== 'all') {
-            filtered = filtered.filter(s => s.status === status);
-        }
-        setFilteredServices(filtered);
+        setIsLoading(false);
     };
 
     useEffect(() => {
         loadServices();
-        setIsLoading(false);
+
+        // Escuchar cambios en localStorage
+        const handleStorageChange = () => {
+            loadServices();
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        return () => window.removeEventListener('storage', handleStorageChange);
     }, []);
 
-    const handleSearch = (term: string) => {
-        setSearchTerm(term);
-        applyFilters(services, term, statusFilter);
-    };
-
-    const handleStatusFilter = (status: string) => {
-        setStatusFilter(status);
-        applyFilters(services, searchTerm, status);
-    };
-
-    const handleStatusChange = (serviceId: string, newStatus: Service['status']) => {
-        try {
-            updateServiceStatus(serviceId, newStatus);
-            loadServices();
-            toast.add({
-                title: 'Estado actualizado',
-                description: `El servicio ha sido actualizado a ${getStatusLabel(newStatus)}`,
-                type: 'success',
-            });
-        } catch (error) {
-            toast.add({
-                title: 'Error',
-                description: 'No se pudo actualizar el estado',
-                type: 'error',
-            });
-        }
-    };
-
-    const handleDelete = () => {
-        if (!selectedService) return;
-        try {
-            deleteService(selectedService.id);
-            loadServices();
-            toast.add({
-                title: 'Servicio eliminado',
-                description: `Ticket ${selectedService.ticketNumber} eliminado`,
-                type: 'success',
-            });
-            setShowDeleteDialog(false);
-        } catch (error) {
-            toast.add({
-                title: 'Error',
-                description: 'No se pudo eliminar el servicio',
-                type: 'error',
-            });
-        }
-    };
-
-    const getStatusColor = (status: Service['status']) => {
-        const colors = {
-            pending: 'bg-yellow-100 text-yellow-800 border-yellow-200',
-            'in-progress': 'bg-blue-100 text-blue-800 border-blue-200',
-            completed: 'bg-green-100 text-green-800 border-green-200',
-            delivered: 'bg-purple-100 text-purple-800 border-purple-200',
-        };
-        return colors[status] || colors.pending;
-    };
-
-    const getStatusLabel = (status: Service['status']) => {
-        const labels = {
-            pending: 'Pendiente',
-            'in-progress': 'En Proceso',
-            completed: 'Completado',
-            delivered: 'Entregado',
-        };
-        return labels[status] || status;
-    };
-
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('es-ES', {
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric',
-        });
-    };
-
     if (isLoading) {
-        return <div className="flex items-center justify-center h-64">Cargando servicios...</div>;
+        return (
+            <div className="flex items-center justify-center h-64">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
+                    <p className="mt-4 text-gray-600">Cargando servicios...</p>
+                </div>
+            </div>
+        );
     }
-
-    // return (
-    //     <div className="space-y-6">
-    //         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-    //             <div>
-    //                 <h2 className="text-2xl font-bold text-gray-900">Servicios</h2>
-    //                 <p className="text-gray-500">Gestiona todos los servicios técnicos</p>
-    //             </div>
-    //             <Button onClick={() => router.push('/services/new')} className="bg-blue-600 hover:bg-blue-700">
-    //                 <Plus className="h-4 w-4 mr-2" />
-    //                 Nuevo Servicio
-    //             </Button>
-    //         </div>
-
-    //         <div className="flex flex-col sm:flex-row gap-4">
-    //             <div className="relative flex-1 max-w-sm">
-    //                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-    //                 <Input
-    //                     placeholder="Buscar por cliente, ticket, marca..."
-    //                     value={searchTerm}
-    //                     onChange={(e) => handleSearch(e.target.value)}
-    //                     className="pl-9"
-    //                 />
-    //             </div>
-    //             <Select value={statusFilter} onValueChange={handleStatusFilter}>
-    //                 <SelectTrigger className="w-[180px]">
-    //                     <SelectValue placeholder="Filtrar por estado" />
-    //                 </SelectTrigger>
-    //                 <SelectContent>
-    //                     <SelectItem value="all">Todos los estados</SelectItem>
-    //                     <SelectItem value="pending">Pendiente</SelectItem>
-    //                     <SelectItem value="in-progress">En Proceso</SelectItem>
-    //                     <SelectItem value="completed">Completado</SelectItem>
-    //                     <SelectItem value="delivered">Entregado</SelectItem>
-    //                 </SelectContent>
-    //             </Select>
-    //         </div>
-
-    //         <div className="rounded-md border border-gray-200 overflow-hidden">
-    //             <Table>
-    //                 <TableHeader>
-    //                     <TableRow className="bg-gray-50">
-    //                         <TableHead>Ticket</TableHead>
-    //                         <TableHead>Cliente</TableHead>
-    //                         <TableHead>Equipo</TableHead>
-    //                         <TableHead>Fecha Ingreso</TableHead>
-    //                         <TableHead>Estado</TableHead>
-    //                         <TableHead className="text-right">Acciones</TableHead>
-    //                     </TableRow>
-    //                 </TableHeader>
-    //                 <TableBody>
-    //                     {filteredServices.length === 0 ? (
-    //                         <TableRow>
-    //                             <TableCell colSpan={6} className="text-center py-8 text-gray-500">
-    //                                 {searchTerm || statusFilter !== 'all'
-    //                                     ? 'No se encontraron resultados'
-    //                                     : 'No hay servicios registrados'}
-    //                             </TableCell>
-    //                         </TableRow>
-    //                     ) : (
-    //                         filteredServices.map((service) => (
-    //                             <TableRow key={service.id} className="hover:bg-gray-50">
-    //                                 <TableCell className="font-mono font-medium text-sm">
-    //                                     {service.ticketNumber}
-    //                                 </TableCell>
-    //                                 <TableCell className="font-medium">{service.clientName}</TableCell>
-    //                                 <TableCell>
-    //                                     <span className="text-sm">
-    //                                         {service.computer.brand} {service.computer.model}
-    //                                     </span>
-    //                                     <span className="text-xs text-gray-500 block">
-    //                                         {service.computer.type}
-    //                                     </span>
-    //                                 </TableCell>
-    //                                 <TableCell>{formatDate(service.entryDate)}</TableCell>
-    //                                 <TableCell>
-    //                                     <Badge className={getStatusColor(service.status)}>
-    //                                         {getStatusLabel(service.status)}
-    //                                     </Badge>
-    //                                 </TableCell>
-    //                                 <TableCell className="text-right">
-    //                                     <DropdownMenu>
-    //                                         {/* ✅ Usamos <button> nativo en el render */}
-    //                                         <DropdownMenuTrigger
-    //                                             render={
-    //                                                 <button
-    //                                                     type="button"
-    //                                                     className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-gray-100 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-    //                                                     aria-label="Abrir menú de acciones"
-    //                                                 >
-    //                                                     <MoreHorizontal className="h-4 w-4 text-gray-500" />
-    //                                                 </button>
-    //                                             }
-    //                                         />
-    //                                         <DropdownMenuContent align="end">
-    //                                             <DropdownMenuGroup>
-    //                                                 <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-    //                                             </DropdownMenuGroup>
-    //                                             <DropdownMenuSeparator />
-    //                                             <DropdownMenuItem onClick={() => router.push(`/services/${service.id}`)}>
-    //                                                 <Eye className="h-4 w-4 mr-2" />
-    //                                                 Ver detalles
-    //                                             </DropdownMenuItem>
-    //                                             <DropdownMenuItem onClick={() => router.push(`/tickets/${service.id}`)}>
-    //                                                 <Printer className="h-4 w-4 mr-2" />
-    //                                                 Imprimir Ticket
-    //                                             </DropdownMenuItem>
-    //                                             <DropdownMenuItem onClick={() => router.push(`/services/${service.id}/edit`)}>
-    //                                                 <Pencil className="h-4 w-4 mr-2" />
-    //                                                 Editar
-    //                                             </DropdownMenuItem>
-    //                                             <DropdownMenuSeparator />
-    //                                             <DropdownMenuGroup>
-    //                                                 <DropdownMenuLabel>Cambiar Estado</DropdownMenuLabel>
-    //                                             </DropdownMenuGroup>
-    //                                             {service.status !== 'pending' && (
-    //                                                 <DropdownMenuItem
-    //                                                     onClick={() => handleStatusChange(service.id, 'pending')}
-    //                                                 >
-    //                                                     Pendiente
-    //                                                 </DropdownMenuItem>
-    //                                             )}
-    //                                             {service.status !== 'in-progress' && (
-    //                                                 <DropdownMenuItem
-    //                                                     onClick={() => handleStatusChange(service.id, 'in-progress')}
-    //                                                 >
-    //                                                     En Proceso
-    //                                                 </DropdownMenuItem>
-    //                                             )}
-    //                                             {service.status !== 'completed' && (
-    //                                                 <DropdownMenuItem
-    //                                                     onClick={() => handleStatusChange(service.id, 'completed')}
-    //                                                 >
-    //                                                     Completado
-    //                                                 </DropdownMenuItem>
-    //                                             )}
-    //                                             {service.status !== 'delivered' && (
-    //                                                 <DropdownMenuItem
-    //                                                     onClick={() => handleStatusChange(service.id, 'delivered')}
-    //                                                 >
-    //                                                     Entregado
-    //                                                 </DropdownMenuItem>
-    //                                             )}
-    //                                             <DropdownMenuSeparator />
-    //                                             <DropdownMenuItem
-    //                                                 className="text-red-600 focus:text-red-600"
-    //                                                 onClick={() => {
-    //                                                     setSelectedService(service);
-    //                                                     setShowDeleteDialog(true);
-    //                                                 }}
-    //                                             >
-    //                                                 <Trash2 className="h-4 w-4 mr-2" />
-    //                                                 Eliminar
-    //                                             </DropdownMenuItem>
-    //                                         </DropdownMenuContent>
-    //                                     </DropdownMenu>
-    //                                 </TableCell>
-    //                             </TableRow>
-    //                         ))
-    //                     )}
-    //                 </TableBody>
-    //             </Table>
-    //         </div>
-
-    //         <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-    //             <AlertDialogContent>
-    //                 <AlertDialogHeader>
-    //                     <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-    //                     <AlertDialogDescription>
-    //                         Esta acción eliminará permanentemente el servicio{' '}
-    //                         <strong>{selectedService?.ticketNumber}</strong> y todos sus datos.
-    //                         Esta acción no se puede deshacer.
-    //                     </AlertDialogDescription>
-    //                 </AlertDialogHeader>
-    //                 <AlertDialogFooter>
-    //                     <AlertDialogCancel>Cancelar</AlertDialogCancel>
-    //                     <AlertDialogAction
-    //                         onClick={handleDelete}
-    //                         className="bg-red-600 hover:bg-red-700"
-    //                     >
-    //                         Eliminar Servicio
-    //                     </AlertDialogAction>
-    //                 </AlertDialogFooter>
-    //             </AlertDialogContent>
-    //         </AlertDialog>
-    //     </div>
-    // );
 
     return (
         <div className="space-y-6">
-            <div>
-                <h2 className="text-2xl font-bold text-gray-900">Clientes</h2>
-                <p className="text-gray-500">Gestiona todos los servicios técnicos</p>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h2 className="text-2xl font-bold text-gray-900">Servicios</h2>
+                    <p className="text-gray-500">Gestiona todos los servicios técnicos</p>
+                </div>
             </div>
             <ServiceTable services={services} onServiceDeleted={loadServices} />
         </div>
