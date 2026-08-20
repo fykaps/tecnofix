@@ -196,7 +196,7 @@ export function ServiceTable({ services: initialServices, onServiceDeleted }: Se
                         className="pl-9"
                     />
                 </div>
-                <Select value={statusFilter} onValueChange={handleStatusFilter}>
+                <Select value={statusFilter} onValueChange={(value) => value && handleStatusFilter(value)}>
                     <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="Filtrar por estado" />
                     </SelectTrigger>

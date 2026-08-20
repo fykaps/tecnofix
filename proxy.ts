@@ -13,7 +13,6 @@ export function proxy(request: NextRequest) {
     const url = new URL(request.url);
     const pathname = url.pathname;
 
-    // Obtener la cookie de sesión
     const authCookie = request.cookies.get(SESSION_COOKIE_NAME);
 
     let isAuthenticated = false;
@@ -22,15 +21,13 @@ export function proxy(request: NextRequest) {
     if (authCookie) {
         try {
             sessionData = JSON.parse(decodeURIComponent(authCookie.value));
-            const now = Date.now();
-            const sessionAge = now - (sessionData.timestamp || 0);
-
-            if (sessionData.user && sessionAge < SESSION_MAX_AGE * 1000) {
-                isAuthenticated = true;
-            } else {
-                const response = NextResponse.redirect(new URL('/login', request.url));
-                response.cookies.delete(SESSION_COOKIE_NAME);
-                return response;
+            // ✅ Verificar que sessionData no sea null
+            if (sessionData && sessionData.user) {
+                const now = Date.now();
+                const sessionAge = now - (sessionData.timestamp || 0);
+                if (sessionAge < SESSION_MAX_AGE * 1000) {
+                    isAuthenticated = true;
+                }
             }
         } catch {
             const response = NextResponse.redirect(new URL('/login', request.url));
@@ -39,23 +36,39 @@ export function proxy(request: NextRequest) {
         }
     }
 
-    // Redirigir a dashboard si está en login y tiene sesión
+    // ✅ Verificar sessionData antes de usarlo
     if (pathname === '/login' && isAuthenticated) {
         return NextResponse.redirect(new URL('/dashboard', request.url));
     }
 
-    // ✅ PERMITIR ACCESO A LA PÁGINA PRINCIPAL (/)
-    // Si está en la raíz y tiene sesión, redirigir a dashboard
     if (pathname === '/' && isAuthenticated) {
         return NextResponse.redirect(new URL('/dashboard', request.url));
     }
 
-    // Si está en la raíz y no tiene sesión, redirigir a login
     if (pathname === '/' && !isAuthenticated) {
         return NextResponse.redirect(new URL('/login', request.url));
     }
 
-    // Proteger rutas del dashboard
+    // ✅ Verificar sessionData antes de usarlo
+    if (isAuthenticated && sessionData) {
+        const now = Date.now();
+        const sessionAge = now - (sessionData.timestamp || 0);
+        const remainingTime = SESSION_MAX_AGE * 1000 - sessionAge;
+
+        if (remainingTime < 5 * 60 * 1000) {
+            const response = NextResponse.next();
+            const newSessionData = { ...sessionData, timestamp: now };
+            response.cookies.set(SESSION_COOKIE_NAME, JSON.stringify(newSessionData), {
+                maxAge: SESSION_MAX_AGE,
+                path: '/',
+                httpOnly: false,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'lax',
+            });
+            return response;
+        }
+    }
+
     const isProtectedRoute =
         pathname.startsWith('/dashboard') ||
         pathname.startsWith('/clients') ||

@@ -37,7 +37,7 @@ export function CostCalculator({
     const [serviceType, setServiceType] = useState<string>(externalSelectedServiceType || '');
     const [partsCost, setPartsCost] = useState<number>(initialCost?.parts || 0);
     const [materialsCost, setMaterialsCost] = useState<number>(initialCost?.materials || 0);
-    const [includesTravel, setIncludesTravel] = useState<boolean>(initialCost?.travel > 0 || false);
+    const [includesTravel, setIncludesTravel] = useState<boolean>(initialCost?.travel ? initialCost.travel > 0 : false);
     const [laborHours, setLaborHours] = useState<number>(1);
     const [costBreakdown, setCostBreakdown] = useState<CostBreakdown>({
         labor: initialCost?.labor || 0,
@@ -161,7 +161,7 @@ export function CostCalculator({
                     <Label className="text-sm font-medium">Tipo de Servicio</Label>
                     <Select
                         value={serviceType}
-                        onValueChange={handleServiceTypeChange}
+                        onValueChange={(value) => value && handleServiceTypeChange(value)}
                     >
                         <SelectTrigger className="w-full">
                             <SelectValue placeholder="Selecciona el tipo de servicio">

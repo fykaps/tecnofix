@@ -66,7 +66,12 @@ export function ServiceStatusChart({
                                     borderRadius: '8px',
                                     padding: '8px 12px',
                                 }}
-                                formatter={(value: number, name: string) => [`${value} servicios`, name]}
+                                formatter={(value: any, name: string) => {
+                                    if (typeof value === 'number') {
+                                        return [`${value} servicios`, name];
+                                    }
+                                    return [String(value), name];
+                                }}
                             />
                             <Legend
                                 verticalAlign="bottom"

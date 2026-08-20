@@ -296,7 +296,7 @@ export default function TicketsPage() {
                     />
                 </div>
                 <div className="flex gap-2 flex-wrap">
-                    <Select value={statusFilter} onValueChange={handleStatusFilter}>
+                    <Select value={statusFilter} onValueChange={(value) => value && handleStatusFilter(value)}>
                         <SelectTrigger className="w-[150px]">
                             <SelectValue placeholder="Estado" />
                         </SelectTrigger>
@@ -308,7 +308,7 @@ export default function TicketsPage() {
                             <SelectItem value="delivered">Entregado</SelectItem>
                         </SelectContent>
                     </Select>
-                    <Select value={dateFilter} onValueChange={handleDateFilter}>
+                    <Select value={dateFilter} onValueChange={(value) => value && handleDateFilter(value)}>
                         <SelectTrigger className="w-[150px]">
                             <SelectValue placeholder="Fecha" />
                         </SelectTrigger>

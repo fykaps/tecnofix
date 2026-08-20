@@ -171,7 +171,7 @@ export function TechnicianSelector({
                 <div className="flex-1 min-w-0">
                     <Select
                         value={value}
-                        onValueChange={handleTechnicianChange}
+                        onValueChange={(technicianId) => technicianId && handleTechnicianChange(technicianId)}
                         disabled={disabled}
                     >
                         <SelectTrigger className="w-full">

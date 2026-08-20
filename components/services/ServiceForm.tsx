@@ -617,6 +617,7 @@ export function ServiceForm({
                     approvalDate: now,
                     serviceType: selectedServiceType,
                     serviceTypeName: serviceTypeName,
+                    technicianName: data.technicianName || '',
                     statusHistory: [
                         {
                             status: 'pending',
