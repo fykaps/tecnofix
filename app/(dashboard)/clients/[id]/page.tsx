@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import {
     Table,
     TableBody,
@@ -13,7 +13,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from '@/components/ui/table';
+} from "@/components/ui/table";
 import {
     ArrowLeft,
     User,
@@ -26,15 +26,12 @@ import {
     DollarSign,
     Clock,
     CheckCircle,
-    AlertCircle,
     Package,
-    Laptop,
-    Users,
-} from 'lucide-react';
-import { getClient, getServices } from '@/lib/data/storage';
-import { Client } from '@/types/client.types';
-import { Service } from '@/types/service.types';
-import { toast } from '@/components/ui/toast';
+} from "lucide-react";
+import { getClient, getServices } from "@/lib/data/storage";
+import { Client } from "@/types/client.types";
+import { Service } from "@/types/service.types";
+import { toast } from "@/components/ui/toast";
 
 export default function ClientDetailPage() {
     const params = useParams();
@@ -48,7 +45,7 @@ export default function ClientDetailPage() {
         pendingServices: 0,
         totalSpent: 0,
         averageTicket: 0,
-        lastService: '',
+        lastService: "",
     });
 
     useEffect(() => {
@@ -60,18 +57,17 @@ export default function ClientDetailPage() {
             const clientServices = allServices.filter(s => s.clientId === id);
             setServices(clientServices);
 
-            // Calcular estadísticas
-            const completed = clientServices.filter(s => s.status === 'delivered' || s.status === 'completed');
-            const pending = clientServices.filter(s => s.status === 'pending' || s.status === 'in-progress');
+            const completed = clientServices.filter(s => s.status === "delivered" || s.status === "completed");
+            const pending = clientServices.filter(s => s.status === "pending" || s.status === "in-progress");
             const totalSpent = completed.reduce((sum, s) => sum + (s.cost || 0), 0);
             const avgTicket = completed.length > 0 ? totalSpent / completed.length : 0;
             const lastService = clientServices.length > 0
-                ? new Date(Math.max(...clientServices.map(s => new Date(s.entryDate).getTime()))).toLocaleDateString('es-ES', {
-                    day: '2-digit',
-                    month: 'short',
-                    year: 'numeric',
+                ? new Date(Math.max(...clientServices.map(s => new Date(s.entryDate).getTime()))).toLocaleDateString("es-ES", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
                 })
-                : 'Ninguno';
+                : "Ninguno";
 
             setStats({
                 totalServices: clientServices.length,
@@ -83,39 +79,39 @@ export default function ClientDetailPage() {
             });
         } else {
             toast.add({
-                title: 'Error',
-                description: 'Cliente no encontrado',
-                type: 'error',
+                title: "Error",
+                description: "Cliente no encontrado",
+                type: "error",
             });
-            router.push('/clients');
+            router.push("/clients");
         }
         setIsLoading(false);
     }, [params.id, router]);
 
-    const getStatusColor = (status: Service['status']) => {
+    const getStatusColor = (status: Service["status"]) => {
         const colors = {
-            pending: 'bg-yellow-100 text-yellow-800 border-yellow-200',
-            'in-progress': 'bg-blue-100 text-blue-800 border-blue-200',
-            completed: 'bg-green-100 text-green-800 border-green-200',
-            delivered: 'bg-purple-100 text-purple-800 border-purple-200',
+            pending: "bg-yellow-100 text-yellow-800 border-yellow-200",
+            "in-progress": "bg-blue-100 text-blue-800 border-blue-200",
+            completed: "bg-green-100 text-green-800 border-green-200",
+            delivered: "bg-purple-100 text-purple-800 border-purple-200",
         };
         return colors[status] || colors.pending;
     };
 
-    const getStatusLabel = (status: Service['status']) => {
+    const getStatusLabel = (status: Service["status"]) => {
         const labels = {
-            pending: 'Pendiente',
-            'in-progress': 'En Proceso',
-            completed: 'Completado',
-            delivered: 'Entregado',
+            pending: "Pendiente",
+            "in-progress": "En Proceso",
+            completed: "Completado",
+            delivered: "Entregado",
         };
         return labels[status] || status;
     };
 
-    const getStatusIcon = (status: Service['status']) => {
+    const getStatusIcon = (status: Service["status"]) => {
         const icons = {
             pending: Clock,
-            'in-progress': Wrench,
+            "in-progress": Wrench,
             completed: CheckCircle,
             delivered: CheckCircle,
         };
@@ -125,17 +121,17 @@ export default function ClientDetailPage() {
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString('es-ES', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric',
+        return date.toLocaleDateString("es-ES", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
         });
     };
 
     const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat('es-PE', {
-            style: 'currency',
-            currency: 'PEN',
+        return new Intl.NumberFormat("es-PE", {
+            style: "currency",
+            currency: "PEN",
             minimumFractionDigits: 2,
         }).format(value);
     };
@@ -153,18 +149,18 @@ export default function ClientDetailPage() {
 
     if (!client) {
         return (
-            <div className="flex items-center justify-center h-64">
+            <div className="px-4 lg:px-6">
                 <p className="text-gray-500">Cliente no encontrado</p>
             </div>
         );
     }
 
     return (
-        <div className="space-y-6 max-w-6xl mx-auto">
+        <div className="px-4 lg:px-6 space-y-6 max-w-6xl mx-auto">
             {/* Cabecera */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
-                    <Button variant="ghost" onClick={() => router.push('/clients')}>
+                    <Button variant="ghost" onClick={() => router.push("/clients")}>
                         <ArrowLeft className="h-4 w-4 mr-2" />
                         Volver
                     </Button>
@@ -178,13 +174,21 @@ export default function ClientDetailPage() {
                         </p>
                     </div>
                 </div>
-                <Button
-                    onClick={() => router.push(`/services/new?clientId=${client.id}`)}
-                    className="bg-blue-600 hover:bg-blue-700"
-                >
-                    <Wrench className="h-4 w-4 mr-2" />
-                    Nuevo Servicio
-                </Button>
+                <div className="flex gap-2">
+                    <Button
+                        variant="outline"
+                        onClick={() => router.push(`/clients/${client.id}/edit`)}
+                    >
+                        Editar Cliente
+                    </Button>
+                    <Button
+                        onClick={() => router.push(`/services/new?clientId=${client.id}`)}
+                        className="bg-blue-600 hover:bg-blue-700"
+                    >
+                        <Wrench className="h-4 w-4 mr-2" />
+                        Nuevo Servicio
+                    </Button>
+                </div>
             </div>
 
             {/* Información del Cliente */}
@@ -267,7 +271,7 @@ export default function ClientDetailPage() {
                 </Card>
             </div>
 
-            {/* Tarjeta de resumen adicional */}
+            {/* Resumen adicional */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Card className="border-none shadow-sm">
                     <CardContent className="p-4 flex items-center justify-between">
@@ -320,7 +324,6 @@ export default function ClientDetailPage() {
                                     <TableRow className="bg-gray-50">
                                         <TableHead>Ticket</TableHead>
                                         <TableHead>Equipo</TableHead>
-                                        <TableHead>Problema</TableHead>
                                         <TableHead>Fecha Ingreso</TableHead>
                                         <TableHead>Costo</TableHead>
                                         <TableHead>Estado</TableHead>
@@ -339,11 +342,6 @@ export default function ClientDetailPage() {
                                                 </span>
                                                 <span className="text-xs text-gray-500 block">
                                                     {service.computer.type}
-                                                </span>
-                                            </TableCell>
-                                            <TableCell>
-                                                <span className="text-sm line-clamp-2 max-w-[200px]">
-                                                    {service.issue}
                                                 </span>
                                             </TableCell>
                                             <TableCell>
@@ -379,34 +377,6 @@ export default function ClientDetailPage() {
                     )}
                 </CardContent>
             </Card>
-
-            {/* Resumen rápido */}
-            {services.length > 0 && (
-                <Card className="border-none shadow-sm bg-gradient-to-r from-blue-50 to-purple-50">
-                    <CardContent className="p-4">
-                        <div className="flex flex-wrap items-center justify-between gap-4">
-                            <div className="flex items-center gap-2">
-                                <Users className="h-5 w-5 text-blue-600" />
-                                <span className="text-sm font-medium">Resumen del Cliente</span>
-                            </div>
-                            <div className="flex flex-wrap items-center gap-4 text-sm">
-                                <span className="text-gray-600">
-                                    <span className="font-medium">{services.length}</span> servicios totales
-                                </span>
-                                <span className="text-gray-600">
-                                    <span className="font-medium text-green-600">{stats.completedServices}</span> completados
-                                </span>
-                                <span className="text-gray-600">
-                                    <span className="font-medium text-yellow-600">{stats.pendingServices}</span> pendientes
-                                </span>
-                                <span className="text-gray-600">
-                                    Total: <span className="font-medium text-purple-600">{formatCurrency(stats.totalSpent)}</span>
-                                </span>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
-            )}
         </div>
     );
 }

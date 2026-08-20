@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
     Users,
     Wrench,
@@ -14,17 +14,25 @@ import {
     TrendingDown,
     Receipt,
     UserCheck,
-} from 'lucide-react';
-import { getClients, getServices, getExpenses, getFinancialSummary, getTechnicians, getAvailableTechnicians, getBusyTechnicians } from '@/lib/data/storage';
-import { Service, Expense, FinancialSummary } from '@/types/service.types';
-import { MetricCard } from '@/components/dashboard/MetricCard';
-import { RevenueChart } from '@/components/dashboard/RevenueChart';
-import { ServiceStatusChart } from '@/components/dashboard/ServiceStatusChart';
-import { DailyActivityChart } from '@/components/dashboard/DailyActivityChart';
-import { RecentActivity } from '@/components/dashboard/RecentActivity';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { Badge } from '@/components/ui/badge';
+} from "lucide-react";
+import {
+    getClients,
+    getServices,
+    getExpenses,
+    getFinancialSummary,
+    getTechnicians,
+    getAvailableTechnicians,
+    getBusyTechnicians,
+} from "@/lib/data/storage";
+import { Service, Expense, FinancialSummary } from "@/types/service.types";
+import { MetricCard } from "@/components/dashboard/MetricCard";
+import { RevenueChart } from "@/components/dashboard/RevenueChart";
+import { ServiceStatusChart } from "@/components/dashboard/ServiceStatusChart";
+import { DailyActivityChart } from "@/components/dashboard/DailyActivityChart";
+import { RecentActivity } from "@/components/dashboard/RecentActivity";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
 
 export default function DashboardPage() {
     const [stats, setStats] = useState({
@@ -48,9 +56,13 @@ export default function DashboardPage() {
     const [services, setServices] = useState<Service[]>([]);
     const [recentServices, setRecentServices] = useState<Service[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [monthlyData, setMonthlyData] = useState<Array<{ name: string; ingresos: number; servicios: number }>>([]);
+    const [monthlyData, setMonthlyData] = useState<
+        Array<{ name: string; ingresos: number; servicios: number }>
+    >([]);
     const [dailyData, setDailyData] = useState<Array<{ day: string; servicios: number }>>([]);
-    const [statusData, setStatusData] = useState<Array<{ name: string; value: number; color: string }>>([]);
+    const [statusData, setStatusData] = useState<
+        Array<{ name: string; value: number; color: string }>
+    >([]);
     const [expensesData, setExpensesData] = useState<Array<{ name: string; gastos: number }>>([]);
 
     const technicians = getTechnicians();
@@ -66,10 +78,10 @@ export default function DashboardPage() {
         setStats({
             totalClients: clients.length,
             totalServices: servicesData.length,
-            pendingServices: servicesData.filter(s => s.status === 'pending').length,
-            inProgressServices: servicesData.filter(s => s.status === 'in-progress').length,
-            completedServices: servicesData.filter(s => s.status === 'completed').length,
-            deliveredServices: servicesData.filter(s => s.status === 'delivered').length,
+            pendingServices: servicesData.filter((s) => s.status === "pending").length,
+            inProgressServices: servicesData.filter((s) => s.status === "in-progress").length,
+            completedServices: servicesData.filter((s) => s.status === "completed").length,
+            deliveredServices: servicesData.filter((s) => s.status === "delivered").length,
         });
 
         setFinancial(financialData);
@@ -83,15 +95,15 @@ export default function DashboardPage() {
 
         // Datos mensuales (últimos 6 meses)
         const now = new Date();
-        const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+        const months = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
         const monthlyRevenueData = Array.from({ length: 6 }, (_, i) => {
             const monthIndex = (now.getMonth() - 5 + i + 12) % 12;
-            const monthServices = servicesData.filter(s => {
+            const monthServices = servicesData.filter((s) => {
                 const date = new Date(s.entryDate);
                 return date.getMonth() === monthIndex && date.getFullYear() === now.getFullYear();
             });
             const total = monthServices
-                .filter(s => s.status === 'delivered' || s.status === 'completed')
+                .filter((s) => s.status === "delivered" || s.status === "completed")
                 .reduce((sum, s) => sum + (s.cost || 0), 0);
             return {
                 name: months[monthIndex],
@@ -102,11 +114,11 @@ export default function DashboardPage() {
         setMonthlyData(monthlyRevenueData);
 
         // Datos diarios (últimos 7 días)
-        const days = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+        const days = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
         const dailyServices = days.map((day, index) => {
             const date = new Date();
             date.setDate(date.getDate() - (6 - index));
-            const dayServices = servicesData.filter(s => {
+            const dayServices = servicesData.filter((s) => {
                 const entryDate = new Date(s.entryDate);
                 return (
                     entryDate.getDate() === date.getDate() &&
@@ -123,16 +135,16 @@ export default function DashboardPage() {
 
         // Datos de estado
         const statusColors: Record<string, string> = {
-            pending: '#f59e0b',
-            'in-progress': '#3b82f6',
-            completed: '#22c55e',
-            delivered: '#8b5cf6',
+            pending: "#f59e0b",
+            "in-progress": "#3b82f6",
+            completed: "#22c55e",
+            delivered: "#8b5cf6",
         };
         const statusLabels: Record<string, string> = {
-            pending: 'Pendiente',
-            'in-progress': 'En Proceso',
-            completed: 'Completado',
-            delivered: 'Entregado',
+            pending: "Pendiente",
+            "in-progress": "En Proceso",
+            completed: "Completado",
+            delivered: "Entregado",
         };
         const statusChartData = Object.entries(
             servicesData.reduce((acc, s) => {
@@ -142,14 +154,14 @@ export default function DashboardPage() {
         ).map(([status, count]) => ({
             name: statusLabels[status] || status,
             value: count,
-            color: statusColors[status] || '#9ca3af',
+            color: statusColors[status] || "#9ca3af",
         }));
         setStatusData(statusChartData);
 
         // Datos de gastos mensuales
         const monthlyExpensesData = Array.from({ length: 6 }, (_, i) => {
             const monthIndex = (now.getMonth() - 5 + i + 12) % 12;
-            const monthExpenses = expenses.filter(e => {
+            const monthExpenses = expenses.filter((e) => {
                 const date = new Date(e.date);
                 return date.getMonth() === monthIndex && date.getFullYear() === now.getFullYear();
             });
@@ -171,8 +183,8 @@ export default function DashboardPage() {
             loadAllData();
         };
 
-        window.addEventListener('storage', handleStorageChange);
-        return () => window.removeEventListener('storage', handleStorageChange);
+        window.addEventListener("storage", handleStorageChange);
+        return () => window.removeEventListener("storage", handleStorageChange);
     }, []);
 
     if (isLoading) {
@@ -187,20 +199,22 @@ export default function DashboardPage() {
     }
 
     const activeServices = stats.pendingServices + stats.inProgressServices;
-    const completionRate = stats.totalServices > 0
-        ? ((stats.completedServices + stats.deliveredServices) / stats.totalServices * 100)
-        : 0;
+    const completionRate =
+        stats.totalServices > 0
+            ? ((stats.completedServices + stats.deliveredServices) / stats.totalServices) * 100
+            : 0;
 
     const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat('es-PE', {
-            style: 'currency',
-            currency: 'PEN',
+        return new Intl.NumberFormat("es-PE", {
+            style: "currency",
+            currency: "PEN",
             minimumFractionDigits: 2,
         }).format(value);
     };
 
     return (
-        <div className="space-y-6">
+        // ✅ Padding lateral consistente con las demás páginas
+        <div className="px-4 lg:px-6 space-y-6">
             {/* Encabezado */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
@@ -306,24 +320,39 @@ export default function DashboardPage() {
                             <div className="flex justify-between items-center">
                                 <div>
                                     <p className="text-sm text-gray-500">Ingresos del Mes</p>
-                                    <p className="text-xl font-bold text-green-600">{formatCurrency(financial.monthlyRevenue)}</p>
+                                    <p className="text-xl font-bold text-green-600">
+                                        {formatCurrency(financial.monthlyRevenue)}
+                                    </p>
                                 </div>
                                 <div className="text-right">
                                     <p className="text-sm text-gray-500">Gastos del Mes</p>
-                                    <p className="text-xl font-bold text-red-600">{formatCurrency(financial.monthlyExpenses)}</p>
+                                    <p className="text-xl font-bold text-red-600">
+                                        {formatCurrency(financial.monthlyExpenses)}
+                                    </p>
                                 </div>
                             </div>
                             <div className="bg-gray-50 p-4 rounded-lg">
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm font-medium text-gray-700">Ganancia del Mes</span>
-                                    <span className={`text-lg font-bold ${financial.monthlyRevenue - financial.monthlyExpenses >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                    <span
+                                        className={`text-lg font-bold ${financial.monthlyRevenue - financial.monthlyExpenses >= 0
+                                                ? "text-green-600"
+                                                : "text-red-600"
+                                            }`}
+                                    >
                                         {formatCurrency(financial.monthlyRevenue - financial.monthlyExpenses)}
                                     </span>
                                 </div>
                                 <div className="mt-2">
                                     <div className="flex justify-between text-xs text-gray-500 mb-1">
                                         <span>Margen: {financial.profitMargin.toFixed(1)}%</span>
-                                        <span>Eficiencia: {(financial.totalExpenses > 0 ? (financial.totalRevenue / financial.totalExpenses).toFixed(2) : 0)}x</span>
+                                        <span>
+                                            Eficiencia:{" "}
+                                            {financial.totalExpenses > 0
+                                                ? (financial.totalRevenue / financial.totalExpenses).toFixed(2)
+                                                : 0}
+                                            x
+                                        </span>
                                     </div>
                                     <Progress
                                         value={financial.profitMargin > 0 ? Math.min(financial.profitMargin, 100) : 0}
@@ -346,21 +375,28 @@ export default function DashboardPage() {
                                     <DollarSign className="h-5 w-5 text-green-600" />
                                     <span className="text-sm font-medium">Total Ingresos</span>
                                 </div>
-                                <span className="font-bold text-green-600">{formatCurrency(financial.totalRevenue)}</span>
+                                <span className="font-bold text-green-600">
+                                    {formatCurrency(financial.totalRevenue)}
+                                </span>
                             </div>
                             <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
                                 <div className="flex items-center gap-2">
                                     <Receipt className="h-5 w-5 text-red-600" />
                                     <span className="text-sm font-medium">Total Gastos</span>
                                 </div>
-                                <span className="font-bold text-red-600">{formatCurrency(financial.totalExpenses)}</span>
+                                <span className="font-bold text-red-600">
+                                    {formatCurrency(financial.totalExpenses)}
+                                </span>
                             </div>
                             <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
                                 <div className="flex items-center gap-2">
                                     <Wallet className="h-5 w-5 text-blue-600" />
                                     <span className="text-sm font-medium">Ganancia Neta</span>
                                 </div>
-                                <span className={`font-bold ${financial.netProfit >= 0 ? 'text-blue-600' : 'text-red-600'}`}>
+                                <span
+                                    className={`font-bold ${financial.netProfit >= 0 ? "text-blue-600" : "text-red-600"
+                                        }`}
+                                >
                                     {formatCurrency(financial.netProfit)}
                                 </span>
                             </div>
@@ -369,21 +405,26 @@ export default function DashboardPage() {
                                     <TrendingUp className="h-5 w-5 text-purple-600" />
                                     <span className="text-sm font-medium">Ticket Promedio</span>
                                 </div>
-                                <span className="font-bold text-purple-600">{formatCurrency(financial.averageTicket)}</span>
+                                <span className="font-bold text-purple-600">
+                                    {formatCurrency(financial.averageTicket)}
+                                </span>
                             </div>
                             <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
                                 <div className="flex items-center gap-2">
                                     <Clock className="h-5 w-5 text-yellow-600" />
                                     <span className="text-sm font-medium">Por Cobrar</span>
                                 </div>
-                                <span className="font-bold text-yellow-600">{formatCurrency(financial.pendingInvoices)}</span>
+                                <span className="font-bold text-yellow-600">
+                                    {formatCurrency(financial.pendingInvoices)}
+                                </span>
                             </div>
                         </div>
                     </CardContent>
                 </Card>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Técnicos */}
+            <div className="grid grid-cols-1 gap-6">
                 <Card className="border-none shadow-sm">
                     <CardHeader>
                         <CardTitle className="text-lg font-semibold flex items-center gap-2">
@@ -399,14 +440,20 @@ export default function DashboardPage() {
                             </div>
                             <div className="flex justify-between items-center">
                                 <span className="text-sm text-gray-600">Disponibles</span>
-                                <Badge variant="outline" className="bg-green-50 text-green-600 border-green-200">
+                                <Badge
+                                    variant="outline"
+                                    className="bg-green-50 text-green-600 border-green-200"
+                                >
                                     <UserCheck className="h-3 w-3 mr-1" />
                                     {available.length}
                                 </Badge>
                             </div>
                             <div className="flex justify-between items-center">
                                 <span className="text-sm text-gray-600">Ocupados</span>
-                                <Badge variant="outline" className="bg-yellow-50 text-yellow-600 border-yellow-200">
+                                <Badge
+                                    variant="outline"
+                                    className="bg-yellow-50 text-yellow-600 border-yellow-200"
+                                >
                                     <Clock className="h-3 w-3 mr-1" />
                                     {busy.length}
                                 </Badge>

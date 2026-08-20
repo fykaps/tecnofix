@@ -1,18 +1,17 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
-import { ServiceForm } from '@/components/services/ServiceForm';
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+import { ServiceForm } from "@/components/services/ServiceForm";
 
 export default function NewServicePage() {
     const router = useRouter();
 
     return (
-        <div className="space-y-6 max-w-6xl mx-auto">
+        <div className="px-4 lg:px-6 space-y-6 max-w-6xl mx-auto">
             <div className="flex items-center gap-4">
-                <Button variant="ghost" onClick={() => router.push('/services')}>
+                <Button variant="ghost" onClick={() => router.push("/services")}>
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Volver
                 </Button>

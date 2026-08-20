@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
-import { ClientForm } from '@/components/clients/ClientForm';
-import { getClient } from '@/lib/data/storage';
-import { Client, ClientFormData } from '@/types/client.types';
-import { toast } from '@/components/ui/toast';
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+import { ClientForm } from "@/components/clients/ClientForm";
+import { getClient } from "@/lib/data/storage";
+import { Client, ClientFormData } from "@/types/client.types";
+import { toast } from "@/components/ui/toast";
 
 export default function EditClientPage() {
     const params = useParams();
@@ -23,43 +23,56 @@ export default function EditClientPage() {
             setClient(data);
         } else {
             toast.add({
-                title: 'Error',
-                description: 'Cliente no encontrado',
-                type: 'error',
+                title: "Error",
+                description: "Cliente no encontrado",
+                type: "error",
             });
-            router.push('/clients');
+            router.push("/clients");
         }
         setIsLoading(false);
     }, [params.id, router]);
 
     if (isLoading) {
-        return <div className="flex items-center justify-center h-64">Cargando cliente...</div>;
+        return (
+            <div className="flex items-center justify-center h-64">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
+                    <p className="mt-4 text-gray-600">Cargando cliente...</p>
+                </div>
+            </div>
+        );
     }
 
     if (!client) {
-        return <div className="flex items-center justify-center h-64">Cliente no encontrado</div>;
+        return (
+            <div className="px-4 lg:px-6">
+                <p className="text-gray-500">Cliente no encontrado</p>
+            </div>
+        );
     }
 
     // Convertir Client a ClientFormData
     const formData: ClientFormData = {
         name: client.name,
         phone: client.phone,
-        email: client.email || '',
-        address: client.address || '',
+        email: client.email || "",
+        address: client.address || "",
         documentType: client.documentType,
         documentNumber: client.documentNumber,
     };
 
     return (
-        <div className="space-y-6 max-w-4xl mx-auto">
+        <div className="px-4 lg:px-6 space-y-6 max-w-4xl mx-auto">
             <div className="flex items-center gap-4">
-                <Button variant="ghost" onClick={() => router.push('/clients')}>
+                <Button variant="ghost" onClick={() => router.push("/clients")}>
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Volver
                 </Button>
                 <div>
                     <h2 className="text-2xl font-bold text-gray-900">Editar Cliente</h2>
-                    <p className="text-gray-500">Actualiza los datos del cliente</p>
+                    <p className="text-gray-500">
+                        Actualizando datos de {client.name}
+                    </p>
                 </div>
             </div>
 
@@ -68,7 +81,11 @@ export default function EditClientPage() {
                     <CardTitle className="text-lg font-semibold">Datos del Cliente</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <ClientForm mode="edit" clientId={client.id} initialData={formData} />
+                    <ClientForm
+                        mode="edit"
+                        clientId={client.id}
+                        initialData={formData}
+                    />
                 </CardContent>
             </Card>
         </div>

@@ -1,14 +1,13 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
-import { ServiceForm } from '@/components/services/ServiceForm';
-import { getService } from '@/lib/data/storage';
-import { Service, ServiceFormData } from '@/types/service.types';
-import { toast } from '@/components/ui/toast';
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+import { ServiceForm } from "@/components/services/ServiceForm";
+import { getService } from "@/lib/data/storage";
+import { Service, ServiceFormData } from "@/types/service.types";
+import { toast } from "@/components/ui/toast";
 
 export default function EditServicePage() {
     const params = useParams();
@@ -23,24 +22,30 @@ export default function EditServicePage() {
             setService(data);
         } else {
             toast.add({
-                title: 'Error',
-                description: 'Servicio no encontrado',
-                type: 'error',
+                title: "Error",
+                description: "Servicio no encontrado",
+                type: "error",
             });
-            router.push('/services');
+            router.push("/services");
         }
         setIsLoading(false);
     }, [params.id, router]);
 
     if (isLoading) {
-        return <div className="flex items-center justify-center h-64">Cargando servicio...</div>;
+        return (
+            <div className="flex items-center justify-center h-64">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
+                    <p className="mt-4 text-gray-600">Cargando servicio...</p>
+                </div>
+            </div>
+        );
     }
 
     if (!service) {
-        return <div className="flex items-center justify-center h-64">Servicio no encontrado</div>;
+        return <div className="px-4 lg:px-6">Servicio no encontrado</div>;
     }
 
-    // Convertir Service a ServiceFormData
     const formData: ServiceFormData = {
         clientId: service.clientId,
         clientName: service.clientName,
@@ -48,18 +53,25 @@ export default function EditServicePage() {
         issue: service.issue,
         estimatedDelivery: service.estimatedDelivery,
         technician: service.technician,
+        costBreakdown: service.costBreakdown,
+        cost: service.cost,
+        customerApproved: service.customerApproved,
     };
 
     return (
-        <div className="space-y-6 max-w-6xl mx-auto">
+        <div className="px-4 lg:px-6 space-y-6 max-w-6xl mx-auto">
             <div className="flex items-center gap-4">
-                <Button variant="ghost" onClick={() => router.push('/services')}>
+                <Button variant="ghost" onClick={() => router.push("/services")}>
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Volver
                 </Button>
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-900">Editar Servicio</h2>
-                    <p className="text-gray-500">Actualiza los datos del servicio</p>
+                    <h2 className="text-2xl font-bold text-gray-900">
+                        Editar Servicio {service.ticketNumber}
+                    </h2>
+                    <p className="text-gray-500">
+                        Cliente: {service.clientName}
+                    </p>
                 </div>
             </div>
 

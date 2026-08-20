@@ -81,7 +81,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        {/* ✅ Eliminamos asChild y usamos href directamente */}
                         <SidebarMenuButton className="data-[slot=sidebar-menu-button]:p-1.5!">
                             <a href="/dashboard" className="flex items-center gap-2">
                                 <span className="text-base font-semibold">TECNOFIX</span>

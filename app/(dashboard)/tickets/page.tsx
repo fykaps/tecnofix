@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
     Table,
     TableBody,
@@ -9,18 +9,18 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '@/components/ui/select';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+} from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
     Search,
     Printer,
@@ -31,19 +31,19 @@ import {
     FileText,
     Calendar,
     User,
-} from 'lucide-react';
-import { Service } from '@/types/service.types';
-import { getServices } from '@/lib/data/storage';
-import { toast } from '@/components/ui/toast';
-import { cn } from '@/lib/utils';
+} from "lucide-react";
+import { Service } from "@/types/service.types";
+import { getServices } from "@/lib/data/storage";
+import { toast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/utils";
 
 export default function TicketsPage() {
     const router = useRouter();
     const [tickets, setTickets] = useState<Service[]>([]);
     const [filteredTickets, setFilteredTickets] = useState<Service[]>([]);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [statusFilter, setStatusFilter] = useState<string>('all');
-    const [dateFilter, setDateFilter] = useState<string>('all');
+    const [searchTerm, setSearchTerm] = useState("");
+    const [statusFilter, setStatusFilter] = useState<string>("all");
+    const [dateFilter, setDateFilter] = useState<string>("all");
     const [isLoading, setIsLoading] = useState(true);
 
     const loadTickets = () => {
@@ -65,44 +65,51 @@ export default function TicketsPage() {
             const searchLower = term.toLowerCase();
             filtered = filtered.filter(
                 (s) =>
-                    s.ticketNumber.toLowerCase().includes(searchLower) ||
-                    s.clientName.toLowerCase().includes(searchLower) ||
-                    s.computer.brand.toLowerCase().includes(searchLower) ||
-                    s.computer.model.toLowerCase().includes(searchLower)
+                    s.ticketNumber?.toLowerCase().includes(searchLower) ||
+                    s.clientName?.toLowerCase().includes(searchLower) ||
+                    s.computer?.brand?.toLowerCase().includes(searchLower) ||
+                    s.computer?.model?.toLowerCase().includes(searchLower)
             );
         }
 
         // Filtro por estado
-        if (status !== 'all') {
+        if (status !== "all") {
             filtered = filtered.filter((s) => s.status === status);
         }
 
         // Filtro por fecha
-        if (date !== 'all') {
+        if (date !== "all") {
             const now = new Date();
             const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
             filtered = filtered.filter((s) => {
                 const entryDate = new Date(s.entryDate);
-                const entryDay = new Date(entryDate.getFullYear(), entryDate.getMonth(), entryDate.getDate());
+                const entryDay = new Date(
+                    entryDate.getFullYear(),
+                    entryDate.getMonth(),
+                    entryDate.getDate()
+                );
 
-                if (date === 'today') {
+                if (date === "today") {
                     return entryDay.getTime() === today.getTime();
-                } else if (date === 'week') {
+                } else if (date === "week") {
                     const weekAgo = new Date(today);
                     weekAgo.setDate(weekAgo.getDate() - 7);
                     return entryDay >= weekAgo;
-                } else if (date === 'month') {
-                    return entryDate.getMonth() === now.getMonth() &&
-                        entryDate.getFullYear() === now.getFullYear();
+                } else if (date === "month") {
+                    return (
+                        entryDate.getMonth() === now.getMonth() &&
+                        entryDate.getFullYear() === now.getFullYear()
+                    );
                 }
                 return true;
             });
         }
 
         // Ordenar por fecha (más reciente primero)
-        filtered.sort((a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        filtered.sort(
+            (a, b) =>
+                new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
 
         setFilteredTickets(filtered);
@@ -128,20 +135,20 @@ export default function TicketsPage() {
         applyFilters(tickets, searchTerm, statusFilter, date);
     };
 
-    const getStatusColor = (status: Service['status']) => {
+    const getStatusColor = (status: Service["status"]) => {
         const colors = {
-            pending: 'bg-yellow-100 text-yellow-800 border-yellow-200',
-            'in-progress': 'bg-blue-100 text-blue-800 border-blue-200',
-            completed: 'bg-green-100 text-green-800 border-green-200',
-            delivered: 'bg-purple-100 text-purple-800 border-purple-200',
+            pending: "bg-yellow-100 text-yellow-800 border-yellow-200",
+            "in-progress": "bg-blue-100 text-blue-800 border-blue-200",
+            completed: "bg-green-100 text-green-800 border-green-200",
+            delivered: "bg-purple-100 text-purple-800 border-purple-200",
         };
         return colors[status] || colors.pending;
     };
 
-    const getStatusIcon = (status: Service['status']) => {
+    const getStatusIcon = (status: Service["status"]) => {
         const icons = {
             pending: Clock,
-            'in-progress': Wrench,
+            "in-progress": Wrench,
             completed: CheckCircle,
             delivered: CheckCircle,
         };
@@ -149,43 +156,45 @@ export default function TicketsPage() {
         return <Icon className="h-4 w-4" />;
     };
 
-    const getStatusLabel = (status: Service['status']) => {
+    const getStatusLabel = (status: Service["status"]) => {
         const labels = {
-            pending: 'Pendiente',
-            'in-progress': 'En Proceso',
-            completed: 'Completado',
-            delivered: 'Entregado',
+            pending: "Pendiente",
+            "in-progress": "En Proceso",
+            completed: "Completado",
+            delivered: "Entregado",
         };
         return labels[status] || status;
     };
 
     const formatDate = (dateString: string) => {
+        if (!dateString) return "-";
         const date = new Date(dateString);
-        return date.toLocaleDateString('es-ES', {
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric',
+        return date.toLocaleDateString("es-ES", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
         });
     };
 
     const formatDateTime = (dateString: string) => {
+        if (!dateString) return "-";
         const date = new Date(dateString);
-        return date.toLocaleDateString('es-ES', {
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
+        return date.toLocaleDateString("es-ES", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
         });
     };
 
     // Estadísticas para el resumen
     const stats = {
         total: filteredTickets.length,
-        pending: filteredTickets.filter(s => s.status === 'pending').length,
-        inProgress: filteredTickets.filter(s => s.status === 'in-progress').length,
-        completed: filteredTickets.filter(s => s.status === 'completed').length,
-        delivered: filteredTickets.filter(s => s.status === 'delivered').length,
+        pending: filteredTickets.filter((s) => s.status === "pending").length,
+        inProgress: filteredTickets.filter((s) => s.status === "in-progress").length,
+        completed: filteredTickets.filter((s) => s.status === "completed").length,
+        delivered: filteredTickets.filter((s) => s.status === "delivered").length,
     };
 
     if (isLoading) {
@@ -200,7 +209,8 @@ export default function TicketsPage() {
     }
 
     return (
-        <div className="space-y-6">
+        // ✅ Padding lateral consistente con las demás páginas
+        <div className="px-4 lg:px-6 space-y-6">
             {/* Header */}
             <div>
                 <h2 className="text-2xl font-bold text-gray-900">Tickets</h2>
@@ -330,44 +340,60 @@ export default function TicketsPage() {
                     <TableBody>
                         {filteredTickets.length === 0 ? (
                             <TableRow>
-                                <TableCell colSpan={6} className="text-center py-8 text-gray-500">
-                                    {searchTerm || statusFilter !== 'all' || dateFilter !== 'all'
-                                        ? 'No se encontraron tickets con esos filtros'
-                                        : 'No hay tickets registrados'}
+                                <TableCell
+                                    colSpan={6}
+                                    className="text-center py-8 text-gray-500"
+                                >
+                                    {searchTerm ||
+                                        statusFilter !== "all" ||
+                                        dateFilter !== "all"
+                                        ? "No se encontraron tickets con esos filtros"
+                                        : "No hay tickets registrados"}
                                 </TableCell>
                             </TableRow>
                         ) : (
                             filteredTickets.map((ticket) => (
                                 <TableRow key={ticket.id} className="hover:bg-gray-50">
                                     <TableCell className="font-mono font-medium text-sm text-blue-600">
-                                        {ticket.ticketNumber}
+                                        {ticket.ticketNumber || "-"}
                                     </TableCell>
                                     <TableCell>
                                         <div className="flex items-center gap-2">
                                             <User className="h-3 w-3 text-gray-400" />
-                                            <span className="font-medium">{ticket.clientName}</span>
+                                            <span className="font-medium">
+                                                {ticket.clientName || "-"}
+                                            </span>
                                         </div>
                                     </TableCell>
                                     <TableCell>
                                         <div>
                                             <span className="text-sm">
-                                                {ticket.computer.brand} {ticket.computer.model}
+                                                {ticket.computer?.brand || "-"}{" "}
+                                                {ticket.computer?.model || ""}
                                             </span>
                                             <span className="text-xs text-gray-500 block">
-                                                {ticket.computer.type} • {ticket.computer.processor}
+                                                {ticket.computer?.type || "-"} •{" "}
+                                                {ticket.computer?.processor || "-"}
                                             </span>
                                         </div>
                                     </TableCell>
                                     <TableCell>
                                         <div>
-                                            <div className="text-sm">{formatDate(ticket.entryDate)}</div>
+                                            <div className="text-sm">
+                                                {formatDate(ticket.entryDate)}
+                                            </div>
                                             <div className="text-xs text-gray-400">
-                                                {formatDateTime(ticket.entryDate).split(', ')[1]}
+                                                {formatDateTime(ticket.entryDate).split(", ")[1] || ""}
                                             </div>
                                         </div>
                                     </TableCell>
                                     <TableCell>
-                                        <Badge className={cn('flex items-center gap-1', getStatusColor(ticket.status))}>
+                                        <Badge
+                                            className={cn(
+                                                "flex items-center gap-1",
+                                                getStatusColor(ticket.status)
+                                            )}
+                                        >
                                             {getStatusIcon(ticket.status)}
                                             {getStatusLabel(ticket.status)}
                                         </Badge>
@@ -378,7 +404,9 @@ export default function TicketsPage() {
                                                 variant="ghost"
                                                 size="icon"
                                                 className="h-8 w-8"
-                                                onClick={() => router.push(`/services/${ticket.id}`)}
+                                                onClick={() =>
+                                                    router.push(`/services/${ticket.id}`)
+                                                }
                                                 title="Ver detalles"
                                             >
                                                 <Eye className="h-4 w-4" />
@@ -387,7 +415,9 @@ export default function TicketsPage() {
                                                 variant="ghost"
                                                 size="icon"
                                                 className="h-8 w-8 text-blue-600 hover:text-blue-700"
-                                                onClick={() => router.push(`/tickets/${ticket.id}`)}
+                                                onClick={() =>
+                                                    router.push(`/tickets/${ticket.id}`)
+                                                }
                                                 title="Imprimir ticket"
                                             >
                                                 <Printer className="h-4 w-4" />
@@ -404,11 +434,13 @@ export default function TicketsPage() {
             {/* Resumen de tickets */}
             {filteredTickets.length > 0 && (
                 <div className="text-sm text-gray-500 text-center">
-                    Mostrando {filteredTickets.length} ticket{filteredTickets.length !== 1 ? 's' : ''}
-                    {statusFilter !== 'all' && ` • Estado: ${getStatusLabel(statusFilter as Service['status'])}`}
-                    {dateFilter === 'today' && ' • Solo hoy'}
-                    {dateFilter === 'week' && ' • Última semana'}
-                    {dateFilter === 'month' && ' • Este mes'}
+                    Mostrando {filteredTickets.length} ticket
+                    {filteredTickets.length !== 1 ? "s" : ""}
+                    {statusFilter !== "all" &&
+                        ` • Estado: ${getStatusLabel(statusFilter as Service["status"])}`}
+                    {dateFilter === "today" && " • Solo hoy"}
+                    {dateFilter === "week" && " • Última semana"}
+                    {dateFilter === "month" && " • Este mes"}
                 </div>
             )}
         </div>

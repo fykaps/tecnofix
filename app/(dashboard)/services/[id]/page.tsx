@@ -1,22 +1,34 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, Printer, Pencil, Wrench, User, Calendar, Clock, Monitor, Cpu, HardDrive, Laptop } from 'lucide-react';
-import { getService, updateServiceStatus } from '@/lib/data/storage';
-import { Service } from '@/types/service.types';
-import { toast } from '@/components/ui/toast';
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import {
+    ArrowLeft,
+    Printer,
+    Pencil,
+    Wrench,
+    User,
+    Calendar,
+    Clock,
+    Monitor,
+    Cpu,
+    HardDrive,
+    Laptop,
+} from "lucide-react";
+import { getService, updateServiceStatus } from "@/lib/data/storage";
+import { Service } from "@/types/service.types";
+import { toast } from "@/components/ui/toast";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
 export default function ServiceDetailPage() {
     const params = useParams();
@@ -30,12 +42,12 @@ export default function ServiceDetailPage() {
         if (data) {
             setService(data);
         } else {
-            toast.add({
-                title: 'Error',
-                description: 'Servicio no encontrado',
-                type: 'error',
+            toast({
+                title: "Error",
+                description: "Servicio no encontrado",
+                variant: "destructive",
             });
-            router.push('/services');
+            router.push("/services");
         }
         setIsLoading(false);
     };
@@ -44,41 +56,41 @@ export default function ServiceDetailPage() {
         loadService();
     }, [params.id, router]);
 
-    const handleStatusChange = (newStatus: Service['status']) => {
+    const handleStatusChange = (newStatus: Service["status"]) => {
         if (!service) return;
         try {
             updateServiceStatus(service.id, newStatus);
             loadService();
             toast.add({
-                title: 'Estado actualizado',
+                title: "Estado actualizado",
                 description: `El servicio ha sido actualizado a ${getStatusLabel(newStatus)}`,
-                type: 'success',
+                type: 'success'
             });
         } catch (error) {
             toast.add({
-                title: 'Error',
-                description: 'No se pudo actualizar el estado',
-                type: 'error',
+                title: "Error",
+                description: "No se pudo actualizar el estado",
+                type: 'error'
             });
         }
     };
 
-    const getStatusColor = (status: Service['status']) => {
+    const getStatusColor = (status: Service["status"]) => {
         const colors = {
-            pending: 'bg-yellow-100 text-yellow-800 border-yellow-200',
-            'in-progress': 'bg-blue-100 text-blue-800 border-blue-200',
-            completed: 'bg-green-100 text-green-800 border-green-200',
-            delivered: 'bg-purple-100 text-purple-800 border-purple-200',
+            pending: "bg-yellow-100 text-yellow-800 border-yellow-200",
+            "in-progress": "bg-blue-100 text-blue-800 border-blue-200",
+            completed: "bg-green-100 text-green-800 border-green-200",
+            delivered: "bg-purple-100 text-purple-800 border-purple-200",
         };
         return colors[status] || colors.pending;
     };
 
-    const getStatusLabel = (status: Service['status']) => {
+    const getStatusLabel = (status: Service["status"]) => {
         const labels = {
-            pending: 'Pendiente',
-            'in-progress': 'En Proceso',
-            completed: 'Completado',
-            delivered: 'Entregado',
+            pending: "Pendiente",
+            "in-progress": "En Proceso",
+            completed: "Completado",
+            delivered: "Entregado",
         };
         return labels[status] || status;
     };
@@ -87,45 +99,68 @@ export default function ServiceDetailPage() {
         const icons: Record<string, any> = {
             Desktop: Monitor,
             Laptop: Laptop,
-            'All-in-One': Monitor,
+            "All-in-One": Monitor,
         };
         const Icon = icons[type] || Monitor;
         return <Icon className="h-4 w-4" />;
     };
 
     const formatDate = (dateString: string) => {
+        if (!dateString) return "-";
         const date = new Date(dateString);
-        return date.toLocaleDateString('es-ES', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric',
+        return date.toLocaleDateString("es-ES", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
         });
     };
 
     const formatDateTime = (dateString: string) => {
+        if (!dateString) return "-";
         const date = new Date(dateString);
-        return date.toLocaleDateString('es-ES', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
+        return date.toLocaleDateString("es-ES", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
         });
     };
 
+    const formatCurrency = (value: number) => {
+        return new Intl.NumberFormat("es-PE", {
+            style: "currency",
+            currency: "PEN",
+            minimumFractionDigits: 2,
+        }).format(value);
+    };
+
     if (isLoading) {
-        return <div className="flex items-center justify-center h-64">Cargando servicio...</div>;
+        return (
+            <div className="flex items-center justify-center h-64">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
+                    <p className="mt-4 text-gray-600">Cargando servicio...</p>
+                </div>
+            </div>
+        );
     }
 
     if (!service) {
-        return <div className="flex items-center justify-center h-64">Servicio no encontrado</div>;
+        return (
+            <div className="flex items-center justify-center h-64">
+                <p className="text-gray-500">Servicio no encontrado</p>
+            </div>
+        );
     }
 
     return (
-        <div className="space-y-6 max-w-6xl mx-auto">
+        // ✅ Padding lateral consistente con las demás páginas
+        <div className="px-4 lg:px-6 space-y-6 max-w-6xl mx-auto">
+            {/* Cabecera */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
-                    <Button variant="ghost" onClick={() => router.push('/services')}>
+                    <Button variant="ghost" onClick={() => router.push("/services")}>
                         <ArrowLeft className="h-4 w-4 mr-2" />
                         Volver
                     </Button>
@@ -139,7 +174,9 @@ export default function ServiceDetailPage() {
                 <div className="flex flex-wrap items-center gap-2">
                     <Select
                         value={service.status}
-                        onValueChange={(value) => handleStatusChange(value as Service['status'])}
+                        onValueChange={(value) =>
+                            handleStatusChange(value as Service["status"])
+                        }
                     >
                         <SelectTrigger className="w-[160px]">
                             <SelectValue>
@@ -172,6 +209,7 @@ export default function ServiceDetailPage() {
                 </div>
             </div>
 
+            {/* Información del Cliente y Equipo */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Información del Cliente */}
                 <Card className="border-none shadow-sm lg:col-span-1">
@@ -206,21 +244,61 @@ export default function ServiceDetailPage() {
                                 <Separator />
                                 <div>
                                     <p className="text-sm text-gray-500">Fecha de Entrega</p>
-                                    <p className="font-medium">{formatDateTime(service.deliveredDate)}</p>
+                                    <p className="font-medium">
+                                        {formatDateTime(service.deliveredDate)}
+                                    </p>
                                 </div>
                             </>
                         )}
                         <Separator />
                         <div>
                             <p className="text-sm text-gray-500">Técnico Responsable</p>
-                            <p className="font-medium">{service.technician}</p>
+                            <p className="font-medium">
+                                {service.technicianName || service.technician || "No asignado"}
+                            </p>
                         </div>
                         {service.cost && (
                             <>
                                 <Separator />
                                 <div>
                                     <p className="text-sm text-gray-500">Costo</p>
-                                    <p className="font-medium text-green-600">S/ {service.cost.toFixed(2)}</p>
+                                    <p className="font-medium text-green-600">
+                                        {formatCurrency(service.cost)}
+                                    </p>
+                                </div>
+                            </>
+                        )}
+                        {service.costBreakdown && (
+                            <>
+                                <Separator />
+                                <div className="text-sm">
+                                    <p className="text-gray-500">Desglose de Costos</p>
+                                    <div className="mt-1 space-y-0.5">
+                                        {service.costBreakdown.labor > 0 && (
+                                            <div className="flex justify-between">
+                                                <span className="text-gray-600">Mano de obra</span>
+                                                <span>{formatCurrency(service.costBreakdown.labor)}</span>
+                                            </div>
+                                        )}
+                                        {service.costBreakdown.parts > 0 && (
+                                            <div className="flex justify-between">
+                                                <span className="text-gray-600">Repuestos</span>
+                                                <span>{formatCurrency(service.costBreakdown.parts)}</span>
+                                            </div>
+                                        )}
+                                        {service.costBreakdown.materials > 0 && (
+                                            <div className="flex justify-between">
+                                                <span className="text-gray-600">Materiales</span>
+                                                <span>{formatCurrency(service.costBreakdown.materials)}</span>
+                                            </div>
+                                        )}
+                                        {service.costBreakdown.travel > 0 && (
+                                            <div className="flex justify-between">
+                                                <span className="text-gray-600">Traslado</span>
+                                                <span>{formatCurrency(service.costBreakdown.travel)}</span>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </>
                         )}
@@ -347,7 +425,9 @@ export default function ServiceDetailPage() {
                                     <Separator />
                                     <div>
                                         <p className="text-sm text-gray-500">Detalles de Reparación</p>
-                                        <p className="text-gray-700 whitespace-pre-wrap">{service.repairDetails}</p>
+                                        <p className="text-gray-700 whitespace-pre-wrap">
+                                            {service.repairDetails}
+                                        </p>
                                     </div>
                                 </>
                             )}

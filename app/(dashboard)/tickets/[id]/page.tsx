@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, Loader2 } from 'lucide-react';
-import { getService } from '@/lib/data/storage';
-import { Service } from '@/types/service.types';
-import { TicketPrinter } from '@/components/tickets/TicketPrinter';
-import { toast } from '@/components/ui/toast';
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, Loader2 } from "lucide-react";
+import { getService } from "@/lib/data/storage";
+import { Service } from "@/types/service.types";
+import { TicketPrinter } from "@/components/tickets/TicketPrinter";
+import { toast } from "@/components/ui/toast";
 
 export default function TicketPage() {
     const params = useParams();
@@ -23,18 +23,18 @@ export default function TicketPage() {
             setService(data);
         } else {
             toast.add({
-                title: 'Error',
-                description: 'Ticket no encontrado',
-                type: 'error',
+                title: "Error",
+                description: "Ticket no encontrado",
+                type: "error",
             });
-            router.push('/services');
+            router.push("/services");
         }
         setIsLoading(false);
     }, [params.id, router]);
 
     const handleClose = () => {
         setOpen(false);
-        router.push('/services');
+        router.push("/services");
     };
 
     if (isLoading) {
@@ -54,9 +54,10 @@ export default function TicketPage() {
     }
 
     return (
-        <div className="space-y-6 max-w-4xl mx-auto">
+        // ✅ Padding lateral consistente
+        <div className="px-4 lg:px-6 space-y-6 max-w-4xl mx-auto">
             <div className="flex items-center gap-4">
-                <Button variant="ghost" onClick={() => router.push('/services')}>
+                <Button variant="ghost" onClick={() => router.push("/services")}>
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Volver
                 </Button>

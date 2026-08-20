@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { getServices } from '@/lib/data/storage';
-import { Service } from '@/types/service.types';
-import { ServiceTable } from '@/components/services/ServiceTable';
+import { useEffect, useState } from "react";
+import { getServices } from "@/lib/data/storage";
+import { Service } from "@/types/service.types";
+import { ServiceTable } from "@/components/services/ServiceTable";
 
 export default function ServicesPage() {
     const [services, setServices] = useState<Service[]>([]);
@@ -18,13 +18,12 @@ export default function ServicesPage() {
     useEffect(() => {
         loadServices();
 
-        // Escuchar cambios en localStorage
         const handleStorageChange = () => {
             loadServices();
         };
 
-        window.addEventListener('storage', handleStorageChange);
-        return () => window.removeEventListener('storage', handleStorageChange);
+        window.addEventListener("storage", handleStorageChange);
+        return () => window.removeEventListener("storage", handleStorageChange);
     }, []);
 
     if (isLoading) {
@@ -39,7 +38,7 @@ export default function ServicesPage() {
     }
 
     return (
-        <div className="space-y-6">
+        <div className="px-4 lg:px-6 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                     <h2 className="text-2xl font-bold text-gray-900">Servicios</h2>
