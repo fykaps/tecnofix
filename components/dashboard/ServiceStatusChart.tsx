@@ -45,7 +45,10 @@ export function ServiceStatusChart({
                                 outerRadius={100}
                                 paddingAngle={4}
                                 dataKey="value"
-                                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                                label={({ name, percent }) => {
+                                    const pct = percent || 0;
+                                    return `${name}: ${(pct * 100).toFixed(0)}%`;
+                                }}
                                 labelLine={false}
                             >
                                 {data.map((entry, index) => (

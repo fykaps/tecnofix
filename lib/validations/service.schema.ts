@@ -25,8 +25,12 @@ export const serviceSchema = z.object({
     issue: z.string().min(10, 'Describe el problema con más detalle'),
     estimatedDelivery: z.string().min(1, 'Fecha estimada de entrega requerida'),
     technician: z.string().min(3, 'Técnico requerido'),
+    technicianName: z.string().optional(),
     cost: z.number().min(1, 'El costo debe ser mayor a 0'),
     costBreakdown: costBreakdownSchema.optional(),
+    serviceType: z.string().optional(),
+    serviceTypeName: z.string().optional(),
+    customerApproved: z.boolean().optional(),
 });
 
 export type ServiceFormValues = z.infer<typeof serviceSchema>;

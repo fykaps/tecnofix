@@ -748,7 +748,7 @@ export function ServiceForm({
                     HISTORIAL
                 ================================================= */}
                 {mode === 'edit' && originalService && originalService.statusHistory && (
-                    <Accordion type="single" className="border rounded-lg">
+                    <Accordion className="border rounded-lg">
                         <AccordionItem value="history">
                             <AccordionTrigger className="px-4 hover:no-underline">
                                 <div className="flex items-center gap-2">

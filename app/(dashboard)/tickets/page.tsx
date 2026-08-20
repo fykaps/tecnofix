@@ -20,7 +20,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
     Search,
     Printer,
@@ -29,12 +29,10 @@ import {
     CheckCircle,
     Wrench,
     FileText,
-    Calendar,
     User,
 } from "lucide-react";
 import { Service } from "@/types/service.types";
 import { getServices } from "@/lib/data/storage";
-import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 
 export default function TicketsPage() {

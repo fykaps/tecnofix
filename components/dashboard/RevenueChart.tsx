@@ -4,10 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
     Area,
     AreaChart,
-    Bar,
-    BarChart,
     CartesianGrid,
-    Legend,
     ResponsiveContainer,
     Tooltip,
     XAxis,
@@ -51,7 +48,12 @@ export function RevenueChart({ data, title = 'Ingresos Mensuales', className }: 
                             <XAxis dataKey="name" stroke="#9ca3af" fontSize={12} />
                             <YAxis stroke="#9ca3af" fontSize={12} tickFormatter={formatCurrency} />
                             <Tooltip
-                                formatter={(value: number) => formatCurrency(value)}
+                                formatter={(value: any) => {
+                                    if (typeof value === 'number') {
+                                        return formatCurrency(value);
+                                    }
+                                    return value;
+                                }}
                                 contentStyle={{
                                     backgroundColor: 'white',
                                     border: '1px solid #e5e7eb',

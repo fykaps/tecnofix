@@ -12,7 +12,6 @@ import {
     Pencil,
     Wrench,
     User,
-    Calendar,
     Clock,
     Monitor,
     Cpu,
@@ -42,10 +41,10 @@ export default function ServiceDetailPage() {
         if (data) {
             setService(data);
         } else {
-            toast({
+            toast.add({
                 title: "Error",
                 description: "Servicio no encontrado",
-                variant: "destructive",
+                type: "error",
             });
             router.push("/services");
         }

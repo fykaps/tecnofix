@@ -23,9 +23,9 @@ export interface Technician {
     name: string;
     phone: string;
     email?: string;
-    specialty: string[];  // Ej: ['hardware', 'software', 'redes']
+    specialty: string[];
     status: 'available' | 'busy' | 'off';
-    currentServiceId?: string;  // ID del servicio que está atendiendo
+    currentServiceId?: string;
     createdAt: string;
     updatedAt: string;
 }
@@ -43,15 +43,14 @@ export interface Service {
     diagnosis?: string;
     repairDetails?: string;
     costBreakdown: CostBreakdown;
-    technician: string;        // ✅ ID del técnico asignado
-    technicianName: string;    // ✅ Nombre del técnico (para mostrar rápido)
-    technicianAssignedAt?: string; // ✅ Fecha de asignación
+    technician: string;
+    technicianName: string;
+    technicianAssignedAt?: string;
     ticketNumber: string;
     createdAt: string;
     updatedAt: string;
-    // ✅ NUEVO: Tipo de servicio para la cotización
-    serviceType?: string;           // ID del servicio en el catálogo
-    serviceTypeName?: string;       // Nombre del servicio en el catálogo
+    serviceType?: string;
+    serviceTypeName?: string;
     cost: number;
     estimatedCost: number;
     finalCost?: number;
@@ -70,7 +69,7 @@ export interface ServiceCatalog {
     description: string;
     basePrice: number;
     laborHours: number;
-    category: 'software' | 'hardware' | 'maintenance' | 'diagnostic' | 'network';
+    category: 'software' | 'hardware' | 'maintenance' | 'diagnostic' | 'network' | 'security' | 'data-recovery' | 'peripherals' | 'support' | 'gaming';
     includesTravel: boolean;
 }
 
@@ -105,6 +104,6 @@ export interface ServiceFormData {
     costBreakdown: CostBreakdown;
     cost: number;
     customerApproved: boolean;
-    serviceType?: string;      // ✅ NUEVO
-    serviceTypeName?: string;  // ✅ NUEVO
+    serviceType?: string;
+    serviceTypeName?: string;
 }
