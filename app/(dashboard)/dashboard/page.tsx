@@ -24,11 +24,10 @@ import {
     getAvailableTechnicians,
     getBusyTechnicians,
 } from "@/lib/data/storage";
-import { Service, Expense, FinancialSummary } from "@/types/service.types";
+import { Service, FinancialSummary } from "@/types/service.types";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { RevenueChart } from "@/components/dashboard/RevenueChart";
 import { ServiceStatusChart } from "@/components/dashboard/ServiceStatusChart";
-import { DailyActivityChart } from "@/components/dashboard/DailyActivityChart";
 import { RecentActivity } from "@/components/dashboard/RecentActivity";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -336,8 +335,8 @@ export default function DashboardPage() {
                                     <span className="text-sm font-medium text-gray-700">Ganancia del Mes</span>
                                     <span
                                         className={`text-lg font-bold ${financial.monthlyRevenue - financial.monthlyExpenses >= 0
-                                                ? "text-green-600"
-                                                : "text-red-600"
+                                            ? "text-green-600"
+                                            : "text-red-600"
                                             }`}
                                     >
                                         {formatCurrency(financial.monthlyRevenue - financial.monthlyExpenses)}
